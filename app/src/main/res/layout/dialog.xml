@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:minWidth="280dip"
+    
+    android:background="@drawable/dialog_full_holo_light"
+    android:layout_height="wrap_content">
+ 
+    <LinearLayout 
+        android:orientation="vertical"
+        android:background="@drawable/orang_back"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp">
+ 
+        <TextView
+            android:id="@+id/title"
+            android:padding="8dip"
+  			android:textColor="@color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+ 
+    </LinearLayout>
+ 
+    <LinearLayout 
+        android:id="@+id/content"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+ 
+        <TextView
+            android:id="@+id/message"
+            android:padding="5dip"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+ 
+    </LinearLayout>
+ 
+    <LinearLayout 
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+ 
+        <Button 
+            android:id="@+id/positiveButton"
+            android:layout_marginTop="3dip"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:background="@drawable/btn_white2"
+            android:layout_height="wrap_content"
+            android:singleLine="true"/>
+ 
+        <Button 
+            android:id="@+id/negativeButton"
+            android:layout_marginTop="3dip"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/btn_white2"
+            android:layout_height="wrap_content"
+            android:singleLine="true"/>
+ 
+    </LinearLayout>
+ 
+</LinearLayout>

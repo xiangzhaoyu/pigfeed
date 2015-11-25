@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android">
+   
+    <solid android:color="#ffffffff" />
+    <corners android:radius="5.0dip" />
+</shape><!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/drawable/login_editor_layout_bg.xml -->

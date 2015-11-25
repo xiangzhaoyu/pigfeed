@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rootblock_default_bg"
+    android:orientation="vertical" >
+
+    <!-- 顶部导航栏 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/linearLayout_header_height"
+        android:layout_marginTop="5dip" >
+
+        <include
+            android:id="@+id/title_formulaquery"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/linearLayout_header_height"
+            layout="@layout/activity_custom_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_gravity="bottom"
+        android:background="@drawable/about_page_divline" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_normal"
+                android:text="区域：" >
+            </TextView>
+
+            <Spinner
+                
+                android:id="@+id/spinner_formula_area"
+                style="@style/spinner_normal" >
+            </Spinner>
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/edittext_formula_area"
+                style="@style/edittext_normal"
+                android:editable="false"
+				android:focusableInTouchMode="false"
+                android:inputType="text"></EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_normal"
+                android:text="类型：" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner_formula_type"
+                style="@style/spinner_normal" >
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textview_normal"
+                android:text="关键字：" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/edittext_formula_keyword"
+                style="@style/edittext_normal"
+                android:inputType="text" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_formula_submit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="查询" >
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.surekam.pigfeed.ui.view.PullDownView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/formula_pull_down_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/white" >
+    </com.surekam.pigfeed.ui.view.PullDownView>
+
+</LinearLayout><!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/layout/fragment_formula_query_main.xml -->

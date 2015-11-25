@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        layout="@layout/navigate_bar" />
+
+    <com.surekam.pigfeed.widge.ViewRadioGroup
+        android:id="@+id/blog_tap"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/blog_viewpager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout><!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/layout/fragment_main_blog.xml -->

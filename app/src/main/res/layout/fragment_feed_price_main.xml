@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rootblock_default_bg"
+    android:orientation="vertical" >
+
+    <!-- 顶部导航栏 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/linearLayout_header_height"
+        android:layout_marginTop="5dip" >
+
+        <include
+            android:id="@+id/title_formulaquery"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/linearLayout_header_height"
+            layout="@layout/activity_custom_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_gravity="bottom"
+        android:background="@drawable/about_page_divline" >
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_feed_nutrition"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/textview_normal"
+                    android:layout_width="wrap_content"
+                    android:text="名称：" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tv_feed_name"
+                    style="@style/textview_info"
+                    android:textAppearance="?android:attr/textAppearanceMedium" >
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/textview_normal"
+                    android:layout_width="wrap_content"
+                    android:text="图表：" >
+                </TextView>
+
+                <Spinner
+                    android:id="@+id/spinner_chart_flag"
+                    style="@style/spinner_normal" >
+                </Spinner>
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/mpchart_feed_average_price"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/textview_normal"
+                    android:layout_width="wrap_content"
+                    android:text="供应商列表" >
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:layout_marginTop="5dp"
+                android:background="@color/linearlayout_background2"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/table_list_title_textview"
+                        android:text="名称" >
+                    </TextView>
+
+                    <TextView
+                        style="@style/table_list_title_textview"
+                        android:text="价格" >
+                    </TextView>
+
+                    <TextView
+                        style="@style/table_list_title_textview"
+                        android:text="电话" >
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listview_feed_agency"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:divider="#00ffffff" >
+            </ListView>
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"></LinearLayout>
+            
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

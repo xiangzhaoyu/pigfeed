@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/graywhite"
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0" >
+
+            <EditText
+                android:id="@+id/et_filter_names"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_search_background"
+                android:drawableLeft="@drawable/search_bar_icon_normal"
+                android:drawablePadding="8dp"
+                android:maxLines="1"
+                android:paddingLeft="8dp"
+                android:selectAllOnFocus="true"
+                android:textSize="14sp" >
+
+                <requestFocus />
+            </EditText>
+
+            <ImageView
+                android:id="@+id/iv_clean_text"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:clickable="true"
+                android:src="@drawable/edittext_del"
+                android:visibility="gone" />
+        </FrameLayout>
+
+       
+    </LinearLayout>
+
+</LinearLayout>

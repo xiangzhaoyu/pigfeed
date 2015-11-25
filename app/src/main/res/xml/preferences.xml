@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:layout="@layout/preference_category"
+        android:title="账号管理" >
+        <Preference
+            android:key="account"
+            android:layout="@layout/preference"
+            android:title="用户登录" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:layout="@layout/preference_category"
+        android:title="其他" >
+        <Preference
+            android:key="update"
+            android:layout="@layout/preference"
+            android:summary="检测是否有新版本"
+            android:title="新版本检测" />
+        <Preference
+            android:key="about"
+            android:layout="@layout/preference"
+            android:summary="关于我们、版权信息"
+            android:title="关于我们" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

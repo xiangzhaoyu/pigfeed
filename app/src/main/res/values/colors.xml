@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="red">#FF0000</color>
+    <color name="gold">#FFD700</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#008000</color>
+    <color name="blue">#0000FF</color>
+    <color name="blue_sky">#A0C8FF</color>
+    <color name="deep_blue">#014D6D</color>
+    <color name="purple">#800080</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="orange">#FFA500</color>
+    <color name="lemonyellow">#FFFACD</color>
+    <color name="graywhite">#F5F5F5</color>
+    <color name="grayslate">#708090</color>
+    <color name="lightblue">#0083FF</color>
+    <color name="grayTrans">#50CCCCCC</color>
+    <color name="darkGray">#ff999999</color>
+    <color name="alphaGray">#55999999</color>
+    <color name="yahei">#ff333333</color>
+    <color name="yahui">#ff666666</color>
+    <color name="full_transparent">#00000000</color>
+    <color name="half_transparent">#aa000000</color>
+    <color name="background">#e5e5e5</color>
+    
+    
+     <color name="radio_start_color">#ffffff</color>
+     <color name="radio_end_color">#fff7f0</color>
+    
+    <color name="radio_select_start_color">#f8cc7e</color>
+     <color name="radio_select_end_color">#fefbf3</color>
+    <color name="radio_select_stroke_color">#fe7b03</color>
+    
+    <color name="linearlayout_background">#7f0d4d76</color>
+    <color name="linearlayout_background2">#bf0d4d76</color>
+    
+
+</resources>

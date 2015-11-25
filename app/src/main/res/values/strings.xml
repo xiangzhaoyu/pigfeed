@@ -1,0 +1,47 @@
+<resources>
+
+    <string name="app_name">猪饲料专家</string>
+    <string name="test_login_account"></string>
+    <string name="test_login_password"></string>
+    <string name="login_dialog_logo">手机或者联通账号</string>
+    <string name="login_dialog_account_hint">请输入手机或者联通账号</string>
+    <string name="login_dialog_password_hint">请输入密码</string>
+    <string name="login_dialog_autoLogin">自动登录</string>
+    <string name="login_dialog_login">登录</string>
+    <string name="login_dialog_reg">注册</string>
+
+    <!--  -->
+    <string name="drop_down_list_header_default_text">点击刷新&#8230;</string>
+    <string name="drop_down_list_header_pull_text">下拉刷新&#8230;</string>
+    <string name="drop_down_list_header_release_text">松开刷新&#8230;</string>
+    <string name="drop_down_list_header_loading_text">正在刷新&#8230;</string>
+    <string name="drop_down_list_footer_default_text">加载更多</string>
+    <string name="drop_down_list_footer_loading_text">正在加载&#8230;</string>
+    <string name="drop_down_list_footer_no_more_text">已全部加载完成</string>
+
+    <!-- 上网时间 -->
+    <string name="time_work">上学日</string>
+    <string name="time_weekend">休息日</string>
+    <string name="time_1">一</string>
+    <string name="time_2">二</string>
+    <string name="time_3">三</string>
+    <string name="time_4">四</string>
+    <string name="time_5">五</string>
+    <string name="time_6">六</string>
+    <string name="time_7">日</string>
+
+    <!-- 上网时间高级设置 -->
+    <string name="time_advance_pop_1">小学</string>
+    <string name="time_advance_pop_2">初中</string>
+    <string name="time_advance_pop_3">高中</string>
+    <string name="time_advance_pop_4">全时段</string>
+
+    <!-- 过滤设置 -->
+    <string name="filter_lower">低过滤级</string>
+    <string name="filter_middle">中过滤级</string>
+    <string name="filter_hight">高过滤级</string>
+    <string name="filter_none">无过滤级</string>
+    <string name="filter_bt_advance">高级设置</string>
+    <string name="filter_cotent">过滤级别设置:\n  无过滤适合18岁以上青年\n  低过滤级别适合16-18岁的青少年\n  中过滤级别适合13-15岁的青少年\n  高过滤级别适合12岁以下少年 </string>
+
+</resources>

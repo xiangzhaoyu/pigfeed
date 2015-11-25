@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:padding="8dp" >
+
+    <RadioButton
+        android:id="@+id/rb_week_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/check_week_left"
+        android:button="@null"
+        android:checked="true"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="周一"
+        android:textColor="@drawable/week_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioButton
+        android:id="@+id/rb_week_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/check_week_middle"
+        android:button="@null"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="周二"
+        android:textColor="@drawable/week_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioButton
+        android:id="@+id/rb_week_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/check_week_middle"
+        android:button="@null"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="周三"
+        android:textColor="@drawable/week_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioButton
+        android:id="@+id/rb_week_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/check_week_middle"
+        android:button="@null"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="周四"
+        android:textColor="@drawable/week_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioButton
+        android:id="@+id/rb_week_5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/check_week_middle"
+        android:button="@null"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="周五"
+        android:textColor="@drawable/week_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioButton
+        android:id="@+id/rb_week_6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/check_week_middle"
+        android:button="@null"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="周六"
+        android:textColor="@drawable/week_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioButton
+        android:id="@+id/rb_week_7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/check_week_right"
+        android:button="@null"
+        android:gravity="center"
+        android:text="周日"
+        android:textColor="@drawable/week_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RadioGroup>

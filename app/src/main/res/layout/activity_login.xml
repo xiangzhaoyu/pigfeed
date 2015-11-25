@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/loginbackground"
+    android:minWidth="280dip"
+    android:orientation="vertical" >
+
+  
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+         android:layout_marginRight="13dp"
+        android:layout_marginTop="100dip"
+        android:background="@drawable/login_editor_layout_bg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:orientation="horizontal"
+            android:padding="4dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4.0dip"
+                android:text="@string/test_login_password"
+                android:textColor="@color/black"
+                android:textSize="17.0sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/account"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="8.0dip"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:ems="10"
+                android:hint="@string/login_dialog_account_hint"
+                android:inputType="text"
+                android:nextFocusUp="@+id/password"
+                android:singleLine="true"
+                android:text="@string/test_login_account"
+                android:textColor="@color/black" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="#ffbfbfbf" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13.299988dip"
+            android:layout_marginRight="3.299988dip"
+            android:orientation="horizontal"
+            android:padding="4dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="17.0sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="8.0dip"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:ems="10"
+                android:hint="@string/login_dialog_password_hint"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:text="@string/test_login_password"
+                android:textColor="@color/black" >
+            </EditText>
+
+            <CheckBox
+                android:id="@+id/login_switchBtn"
+                android:layout_width="55.0dip"
+                android:layout_height="wrap_content"
+                android:button="@drawable/login_hide_password_selector"
+                android:clickable="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13.299988dip"
+        android:layout_marginRight="3.299988dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="4dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_dialog_autoLogin"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/autologin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="0.15"
+            android:button="@drawable/btn_checkbox"
+            android:drawablePadding="8dp"
+            android:text=""
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="13dp" >
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="fill_parent"
+            android:layout_height="45dip"
+            android:background="@drawable/btn_white2"
+            android:text="@string/login_dialog_login"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="13dp" >
+    </RelativeLayout>
+
+</LinearLayout>

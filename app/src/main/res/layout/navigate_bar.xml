@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topbar_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/orang_back"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/topbar_left_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="@drawable/btn_title_button_bg"
+        android:clickable="true"
+        android:scaleType="center"
+        android:src="@drawable/browser_back_dn" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/topbar_title"
+            style="@style/title_detail_head"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:singleLine="true"
+            android:text="@string/app_name" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/topbar_right_btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="@drawable/btn_title_button_bg"
+        android:clickable="true"
+        android:scaleType="center"
+        android:src="@drawable/browser_open_dn"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingRight="8dp" >
+
+        <ImageView
+            android:id="@+id/topbar_right_image"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_title_button_bg"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/channel_setting"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/topbar_right_btn"
+            style="@style/textView_size16_white"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_title_button_bg"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+
+            android:text="" />
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+     >
+
+    <TextView
+		style="@style/textView_size16_yahui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入联通手机号码:" />
+
+    <EditText
+        style="@style/textView_size16_yahei"
+        android:layout_marginTop="8dp"
+        android:id="@+id/new_phone_et_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        style="@style/textView_size16_yahui"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入服务密码:" />
+
+    <EditText
+        android:id="@+id/new_phone_et_psw"
+        style="@style/textView_size16_yahei"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         />
+
+    <Button
+        android:id="@+id/new_phone_bt_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_green"
+        style="@style/textView_size16_white"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="right"
+        android:text="绑定号码" />
+
+</LinearLayout>

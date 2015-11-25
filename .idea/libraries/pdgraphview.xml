@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pdgraphview">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/pdgraphview.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

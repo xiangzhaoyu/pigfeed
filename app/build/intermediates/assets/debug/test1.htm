@@ -1,0 +1,82 @@
+﻿
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		
+		<script type="text/javascript" src="ichart.latest.min.js"></script>
+		<link rel="stylesheet" href="../css/demo.css" type="text/css"/>
+		<script type="text/javascript">
+		$(function(){
+			var data = [
+			        	{ name: '学习网站', value: 100, color: '#00afef' },
+{ name: '门户', value: 300, color: '#fe4f02' },
+{ name: '社交', value: 50, color: '#f89c00' },
+{ name: '游戏', value: 50, color: '#f6f871' },
+{ name: '其他', value: 150, color: '#778088' },
+
+		        	];
+	    	
+			var chart = new iChart.Donut2D({
+				render : 'canvasDiv',
+				 title: "上月网页分类统计",
+				 offsety:10,
+				  
+				 
+				border:false,
+				 showpercent: false,
+				center:{
+					text:'',
+					
+					shadow:true,
+					shadow_offsetx:0,
+					shadow_offsety:2,
+					shadow_blur:2,
+					shadow_color:'#b7b7b7',
+					color:'#6f6f6f'
+				},
+				data: data,
+		    	
+				shadow:true,
+				background_color:'#ffffff',
+				separate_angle:10,//分离角度
+				tip:{
+					enable:false,
+					showType:'fixed'
+				},
+			
+				sub_option:{
+				
+				
+		                listeners: {
+		                  
+		                    click: function (r, e) {
+		                      
+		                         window.mytest.showToast(r.get('name'));
+		                               
+		                    }
+		                }
+		          
+				},
+			
+				decimalsnum:2,
+				width : 300,
+				height : 220,
+				radius:55
+			});
+
+			
+			chart.draw();
+		});
+		
+	
+		</script>
+	</head>
+	<body>
+		<div id='canvasDiv'></div>
+		<hr noshade size=0 color=#C0C0C0>
+			<div align="center">点击圆环或标签查看各分类主要浏览网站</div>
+	    <hr noshade size=0 color=#C0C0C0>
+		
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:background="@drawable/bg_list_all"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+
+    <include 
+        android:id="@+id/new_account_navigate_bar"
+        layout="@layout/navigate_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_list_category_bg"
+        android:orientation="vertical" >
+
+        <RadioGroup
+            android:id="@+id/new_account_rg_radio_group"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="8dp" >
+
+            <RadioButton
+                android:id="@+id/new_account_rb_pppoe"
+                style="@style/style_radio_left"
+                android:checked="true"
+                android:text="绑定宽带账号" />
+
+            <RadioButton
+                android:id="@+id/new_account_rb_phone"
+                style="@style/style_radio_rightt"
+                android:text="绑定联通手机" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <ViewSwitcher
+        android:id="@+id/new_account_vs_switch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include layout="@layout/view_new_pppoe" />
+
+        <include layout="@layout/view_new_phone" />
+    </ViewSwitcher>
+
+</LinearLayout>
