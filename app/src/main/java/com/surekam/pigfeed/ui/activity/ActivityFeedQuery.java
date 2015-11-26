@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.surekam.pigfeed.R;
 import com.surekam.pigfeed.api.HttpExecuteJson;
 import com.surekam.pigfeed.api.ServiceHelper;
@@ -21,12 +23,15 @@ import com.surekam.pigfeed.bean.FeedFormulaType;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
 import com.surekam.pigfeed.bean.FeedType;
 import com.surekam.pigfeed.bean.FeedVo;
+import com.surekam.pigfeed.ui.adapter.FeedAdapter;
+import com.surekam.pigfeed.ui.adapter.FormulaAdapter;
 import com.surekam.pigfeed.ui.view.PullDownView;
 import com.surekam.pigfeed.ui.view.PullDownView.OnPullDownListener;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -35,6 +40,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,12 +61,14 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 	private String typeid;
 	private String areaid;
 
-	private PullDownView mPullDownView;
+	private PullToRefreshListView mFormulasView;
+	private RelativeLayout mNoms;//没有飼料的提示
+	/** 是否刷新 */
+	private boolean isRefreshing = false;
 	// private List<String> mStrings = new ArrayList<String>();
 	// 配方已经显示的配方
 	private List<FeedVo> mfs = new ArrayList<FeedVo>();
-	private ListView mListView;
-	private ArrayAdapter<FeedVo> mAdapter;
+	private FeedAdapter mAdapter;
 
 	// 分页的标志
 	private int pageno = 1;
@@ -118,93 +126,6 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 
 		});
 
-		/*
-		 * 1.使用PullDownView 2.设置OnPullDownListener 3.从mPullDownView里面获取ListView
-		 */
-		mPullDownView = (PullDownView) findViewById(R.id.formula_pull_down_view);
-		// mPullDownView.setOnPullDownListener(this);
-		mPullDownView.setOnPullDownListener(new OnPullDownListener() {
-
-			@Override
-			public void onRefresh() {
-				// TODO Auto-generated method stub
-				pageno = 1;
-				pagesize = 5;
-				try {
-
-					loadFeeds(mFeedsRefreshListener);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-
-			@Override
-			public void onMore() {
-				// TODO Auto-generated method stub
-				if ((pagecount-(pageno*pagesize))>0) {
-					pageno++;
-					try {
-
-						loadFeeds(mFeedsMoreListener);
-
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
-				} else {
-					UIHelper.ToastMessage(getApplicationContext(), "已经没有更多推荐");
-					mPullDownView.notifyDidMore();
-				}
-
-			}
-		});
-		mListView = mPullDownView.getListView();
-
-		// mListView.setOnItemClickListener(this);
-		mListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				// UIHelper.ToastMessage(getApplicationContext(), "啊，你点中我了 " +
-				// position,
-				// Toast.LENGTH_SHORT).show();
-				try {
-					FeedVo
-					ff=(FeedVo)mListView.getItemAtPosition(position);
-					if(ff!=null&&ff.id!=null){
-						FeedFormulaRecommandVo fv=new FeedFormulaRecommandVo();
-						fv.feedId=ff.id;
-						fv.feedName=ff.name;
-						fv.remark=ff.remark;
-						
-						if(showWho>0){
-							Intent intent=new
-							Intent(ActivityFeedQuery.this,ActivityPriceMain.class);
-							intent.putExtra("feedvo", ff);
-							startActivity(intent);
-						}else{
-							Intent intent=new
-							Intent(ActivityFeedQuery.this,ActivityFeedDetail.class);
-							intent.putExtra("formularecommand", fv);
-							startActivity(intent);	
-						}	
-					}
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		mAdapter = new ArrayAdapter<FeedVo>(this, R.layout.view_pulldown_item,
-				mfs);
-		mListView.setAdapter(mAdapter);
-
-		//mPullDownView.enableAutoFetchMore(true, 1);
-
 	}
 
 	private void initialView() {
@@ -224,11 +145,108 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 				// TODO Auto-generated method stub
 				try {
 					pageno=1;
-					loadFeeds(mFeedsRefreshListener);
+					mfs.clear();
+					isRefreshing=false;
+					loadFeeds();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
+			}
+		});
+
+		mFormulasView=(PullToRefreshListView) findViewById(R.id.formula_pull_down_view);
+		mFormulasView.setMode(PullToRefreshBase.Mode.BOTH);
+		mNoms=(RelativeLayout)findViewById(R.id.rl_match_noms);
+		mfs=new ArrayList<FeedVo>();
+
+		mFormulasView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+			@Override
+			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+				if (!isRefreshing) {
+					isRefreshing = true;
+
+					mfs.clear();
+					pageno = 1;
+					String label = DateUtils.formatDateTime(getApplicationContext(),
+							System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
+									| DateUtils.FORMAT_SHOW_DATE
+									| DateUtils.FORMAT_ABBREV_ALL);
+
+					// Update the LastUpdatedLabel
+					refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+					refreshView.getLoadingLayoutProxy(false, true).setPullLabel(
+							getString(R.string.pull_to_refresh_pull_label));
+					refreshView.getLoadingLayoutProxy(false, true)
+							.setRefreshingLabel(
+									getString(R.string.pull_to_refresh_refreshing_label));
+					refreshView.getLoadingLayoutProxy(false, true)
+							.setReleaseLabel(
+									getString(R.string.pull_to_refresh_release_label));
+
+					loadFeeds();
+				} else {
+					mFormulasView.onRefreshComplete();
+				}
+			}
+
+			@Override
+			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+				if (!isRefreshing) {
+					isRefreshing = true;
+
+					pageno++;
+					String label = DateUtils.formatDateTime(getApplicationContext(),
+							System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
+									| DateUtils.FORMAT_SHOW_DATE
+									| DateUtils.FORMAT_ABBREV_ALL);
+
+					// Update the LastUpdatedLabel
+					refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+					refreshView.getLoadingLayoutProxy(false, true).setPullLabel(
+							getString(R.string.pull_to_refresh_from_bottom_pull_label));
+					refreshView.getLoadingLayoutProxy(false, true)
+							.setRefreshingLabel(
+									getString(R.string.pull_to_refresh_from_bottom_refreshing_label));
+					refreshView.getLoadingLayoutProxy(false, true)
+							.setReleaseLabel(
+									getString(R.string.pull_to_refresh_from_bottom_release_label));
+
+					loadFeeds();
+				} else {
+					mFormulasView.onRefreshComplete();
+				}
+			}
+		});
+
+		mFormulasView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				try {
+					FeedVo
+							ff=(FeedVo)parent.getAdapter().getItem(position);
+					if(ff!=null&&ff.id!=null){
+						FeedFormulaRecommandVo fv=new FeedFormulaRecommandVo();
+						fv.feedId=ff.id;
+						fv.feedName=ff.name;
+						fv.remark=ff.remark;
+
+						if(showWho>0){
+							Intent intent=new
+									Intent(ActivityFeedQuery.this,ActivityPriceMain.class);
+							intent.putExtra("feedvo", ff);
+							startActivity(intent);
+						}else{
+							Intent intent=new
+									Intent(ActivityFeedQuery.this,ActivityFeedDetail.class);
+							intent.putExtra("formularecommand", fv);
+							startActivity(intent);
+						}
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -239,7 +257,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 	private void initialData() {
 		loadFeedTypes();
 		loadAreas();
-		loadFeeds(mFeedsListener);
+		loadFeeds();
 	}
 
 	@Override
@@ -254,9 +272,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 
 			submit = null;
 			
-			mPullDownView = null;
-			// mStrings=null;
-			mListView = null;
+			mFormulasView=null;
 			mAdapter = null;
 			System.gc();
 		} catch (Exception e) {
@@ -297,9 +313,9 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 		}
 	}
 
-	private void loadFeeds(httpReturnJson hrs) {
+	private void loadFeeds() {
 		try {
-			HttpExecuteJson http = new HttpExecuteJson(this, hrs);
+			HttpExecuteJson http = new HttpExecuteJson(this, mFeedsListener);
 			Map<String, Object> rps = new HashMap<String, Object>();
 			rps.put("method", "getFeed");
 			try {
@@ -465,17 +481,11 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						}.getType());
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					List<FeedVo> temps1 = (ArrayList<FeedVo>) edv.data;
-					mfs.clear();
-					if(edv.page!=null){
-						pagecount = (int) edv.page.totalItems;	
-					}else{
-						pagecount=0;
-					}
-					
-					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
+
+					List<FeedVo> temps2 = (ArrayList<FeedVo>) edv.data;
+					List<FeedVo> temps1=new ArrayList<FeedVo>();
+					if(temps2!=null){
+						for (Object f : temps2) {
 							try {
 								FeedVo ft = new Gson().fromJson(
 										new Gson().toJson(f),
@@ -483,200 +493,43 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 										}.getType());
 								if (ft != null && ft.name != null) {
 									// temps.add(ft.name);
-									mfs.add(ft);
+									temps1.add(ft);
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
-						}	
+						}
 					}
-					if(mfs!=null&&mfs.size()==0){
-						FeedVo fv=new FeedVo();
-						fv.id=null;
-						fv.name="无推荐";
-						mfs.add(fv);
+
+					if(temps1==null||temps1.size()==0){        // mAdapterMyCreate.notifyDataSetChanged();
+						Toast.makeText(ActivityFeedQuery.this, "没有更多数据了",
+								Toast.LENGTH_SHORT).show();
+					}else{
+						mfs.addAll(temps1);
 					}
+
+					if(isRefreshing){
+						mAdapter.notifyDataSetChanged();
+					}else{
+						mAdapter = new FeedAdapter(ActivityFeedQuery.this, mfs);
+						mFormulasView.setAdapter(mAdapter);
+					}
+
+					if(mfs!=null&&mfs.size()>0){
+						mFormulasView.setVisibility(View.VISIBLE);
+						mNoms.setVisibility(View.GONE);
+					}else{
+						mFormulasView.setVisibility(View.GONE);
+						mNoms.setVisibility(View.VISIBLE);
+					}
+
+					mFormulasView.onRefreshComplete();
+					isRefreshing = false;
 					
 				}
-				try{
-					if((pagecount-(pageno*pagesize))>0){
-						mPullDownView.haveMore=true;
-					}else{
-						mPullDownView.haveMore=false;
-					}
-				}catch(Exception e){e.printStackTrace();}
-				// mStrings.addAll(temps);
-				mAdapter.notifyDataSetChanged();
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidLoad();
 			} catch (Exception e) {
 				e.printStackTrace();
 				// mStrings.addAll(temps);
-				try{
-				mAdapter.notifyDataSetChanged();
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidLoad();}catch(Exception e1){e1.printStackTrace();}
-			}
-		}
-
-		@Override
-		public void onFailure(int error, String msg) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onCancel() {
-			// TODO Auto-generated method stub
-
-		}
-	};
-
-	private httpReturnJson mFeedsRefreshListener = new httpReturnJson() {
-
-		@Override
-		public void onSuccess(String result) {
-			// TODO Auto-generated method stub
-			EntityDataPageVo edv = null;
-			try {
-				edv = new Gson().fromJson(result,
-						new TypeToken<EntityDataPageVo>() {
-						}.getType());
-				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					if(edv.page!=null){
-						pageno=edv.page.pageNo;
-						pagesize=edv.page.pageSize;	
-						pagecount = (int) edv.page.totalItems;
-					}else{
-						pagecount=0;
-					}
-					mfs.clear();
-					List<FeedVo> temps1 = (ArrayList<FeedVo>) edv.data;
-					
-					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								FeedVo ft = new Gson().fromJson(
-										new Gson().toJson(f),
-										new TypeToken<FeedVo>() {
-										}.getType());
-								if (ft != null && ft.name != null) {
-									// temps.add(ft.name);
-									mfs.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}
-					if(mfs!=null&&mfs.size()==0){
-						FeedVo fv=new FeedVo();
-						fv.id=null;
-						fv.name="无推荐";
-						mfs.add(fv);
-					}
-					
-				}
-				try{
-					if((pagecount-(pageno*pagesize))>0){
-						mPullDownView.haveMore=true;
-					}else{
-						mPullDownView.haveMore=false;
-					}
-				}catch(Exception e){e.printStackTrace();}
-				// mStrings.addAll(temps);
-				mAdapter.notifyDataSetChanged();
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidRefresh();
-			} catch (Exception e) {
-				e.printStackTrace();
-				// mStrings.addAll(temps);
-				try{
-				mAdapter.notifyDataSetChanged();
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidRefresh();}catch(Exception e1){e1.printStackTrace();}
-			}
-		}
-
-		@Override
-		public void onFailure(int error, String msg) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onCancel() {
-			// TODO Auto-generated method stub
-
-		}
-	};
-
-	private httpReturnJson mFeedsMoreListener = new httpReturnJson() {
-
-		@Override
-		public void onSuccess(String result) {
-			// TODO Auto-generated method stub
-			EntityDataPageVo edv = null;
-			try {
-				edv = new Gson().fromJson(result,
-						new TypeToken<EntityDataPageVo>() {
-						}.getType());
-				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					List<FeedVo> temps1 = (ArrayList<FeedVo>) edv.data;
-					if(edv.page!=null){
-						pageno=edv.page.pageNo;
-						pagesize=edv.page.pageSize;
-						pagecount = (int) edv.page.totalItems;	
-					}else{
-						pagecount=0;
-					}
-					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								FeedVo ft = new Gson().fromJson(
-										new Gson().toJson(f),
-										new TypeToken<FeedVo>() {
-										}.getType());
-								if (ft != null && ft.name != null) {
-									// temps.add(ft.name);
-									mfs.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}
-					if(mfs!=null&&mfs.size()==0){
-						FeedVo fv=new FeedVo();
-						fv.id=null;
-						fv.name="无推荐";
-						mfs.add(fv);
-					}
-					
-					
-				}
-				try{
-					if((pagecount-(pageno*pagesize))>0){
-						mPullDownView.haveMore=true;
-					}else{
-						mPullDownView.haveMore=false;
-					}
-				}catch(Exception e){e.printStackTrace();}
-				// mStrings.addAll(temps);
-				mAdapter.notifyDataSetChanged();
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidMore();
-			} catch (Exception e) {
-				e.printStackTrace();
-				// mStrings.addAll(temps);
-				try{
-				mAdapter.notifyDataSetChanged();
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidMore();}catch(Exception e1){e1.printStackTrace();}
 			}
 		}
 
