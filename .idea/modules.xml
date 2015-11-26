@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pigfeed.iml" filepath="$PROJECT_DIR$/pigfeed.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pulltofrefresh_library/pulltofrefresh_library.iml" filepath="$PROJECT_DIR$/pulltofrefresh_library/pulltofrefresh_library.iml" />
     </modules>
   </component>
 </project>
