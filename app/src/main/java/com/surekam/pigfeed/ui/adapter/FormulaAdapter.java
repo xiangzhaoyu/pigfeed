@@ -3,74 +3,75 @@ package com.surekam.pigfeed.ui.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.http.RequestParams;
+import com.surekam.pigfeed.R;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class FormulaAdapter extends BaseAdapter {
-	List<FeedFormulaVo> mDatas = new ArrayList<FeedFormulaVo>();
-	LayoutInflater mInflater;
-	int mTextRow = 1; // 文字自动换行造成最后一列显示不全
-	Context mContext;
-	int _style = 1;
+	private Context mContext;
+	private List<FeedFormulaVo> mBoutiques;
+	private LayoutInflater mInflater;
 
-	public FormulaAdapter(Context ctx) {
-		mInflater = LayoutInflater.from(ctx);
-		mContext = ctx;
-	}
+	public FormulaAdapter(Context context, List<FeedFormulaVo> boutiques) {
+		mContext = context;
+		mBoutiques = boutiques;
+		mInflater = LayoutInflater.from(context);
 
-	public void setDatas(List<FeedFormulaVo> datas) {
-		mDatas = datas;
-	}
-
-	public void setStyle(int style) {
-		_style = style;
 	}
 
 	@Override
 	public int getCount() {
-		return mDatas.size();
-
+		return mBoutiques.size();
 	}
 
 	@Override
-	public FeedFormulaVo getItem(int position) {
-
-		return mDatas.get(position);
+	public Object getItem(int i) {
+		return mBoutiques.get(i);
 	}
 
 	@Override
-	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return position;
+	public long getItemId(int i) {
+		return i;
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int i, View view, ViewGroup viewGroup) {
 
-//		if (convertView == null) {
-//			convertView = mInflater.inflate(R.layout.list_item_register, null);
-//		}
-//
-//		TextView tv = (TextView) convertView.findViewById(R.id.item_register_text);
-//		TextView tv2 = (TextView) convertView.findViewById(R.id.item_register_text_2);
-//
-//		FeedFormulaVo data = getItem(position);
-//
-//		if (_style == 1) {
-//			String text = data.getSimple();
-//			UIHelper.setTvTextHtml(tv, text);
-//			tv2.setVisibility(View.GONE);
-//
-//		}
+		final ViewHolder viewHolder;
 
-//		return convertView;
-		return null;
+		if (view == null) {
+			viewHolder = new ViewHolder();
+			view = mInflater.inflate(R.layout.item_list_formula,
+					viewGroup, false);
+
+			viewHolder.mFormula=(RelativeLayout)view.findViewById(R.id.rl_formula);
+			viewHolder.mFormulaName=(TextView)view.findViewById(R.id.tv_formula_name);
+
+			view.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) view.getTag();
+		}
+
+		viewHolder.mFormulaName.setText(mBoutiques.get(i).name);
+		return view;
+	}
+
+	class ViewHolder {
+		private RelativeLayout mFormula;
+		private TextView mFormulaName;
 	}
 }
 

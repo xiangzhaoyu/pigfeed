@@ -109,12 +109,28 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.surekam.pigfeed.ui.view.PullDownView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/formula_pull_down_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/white" >
-    </com.surekam.pigfeed.ui.view.PullDownView>
+        android:divider="#00ffffff"
+        ptr:ptrHeaderTextColor="@color/black"
+
+        />
+    <RelativeLayout
+        android:id="@+id/rl_match_noms"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_marginTop="60dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="当前没有合适的配方推荐！"
+            android:textSize="18dp"
+            android:textColor="@color/black"/>
+    </RelativeLayout>
 
 </LinearLayout><!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/layout/fragment_formula_query_main.xml -->

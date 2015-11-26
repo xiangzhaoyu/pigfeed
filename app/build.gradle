@@ -26,4 +26,5 @@ dependencies {
     compile files('libs/pdgraphview.jar')
     compile files('libs/square-otto-1.3.2.jar')
     compile files('libs/xUtils-2.4.7.jar')
+    compile project(':pulltofrefresh_library')
 }

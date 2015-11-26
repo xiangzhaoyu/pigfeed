@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lidroid.xutils.http.RequestParams;
 import com.surekam.pigfeed.R;
 import com.surekam.pigfeed.api.HttpExecuteJson;
@@ -19,6 +21,7 @@ import com.surekam.pigfeed.bean.City;
 import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedFormulaType;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
+import com.surekam.pigfeed.ui.adapter.FormulaAdapter;
 import com.surekam.pigfeed.ui.view.PullDownView;
 import com.surekam.pigfeed.ui.view.PullDownView.OnPullDownListener;
 
@@ -27,6 +30,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -37,6 +41,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,22 +57,18 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 	private EditText et_area;
 	private EditText et_keyword;
 
-	private static final int WHAT_DID_LOAD_DATA = 0;
-	private static final int WHAT_DID_REFRESH = 1;
-	private static final int WHAT_DID_MORE = 2;
-
-	private PullDownView mPullDownView;
+	private PullToRefreshListView mFormulasView;
+	private RelativeLayout mNoms;//没有配方的提示
+	/** 是否刷新 */
+	private boolean isRefreshing = false;
 	// private List<String> mStrings = new ArrayList<String>();
 	// 配方已经显示的配方
 	private List<FeedFormulaVo> mFfs = new ArrayList<FeedFormulaVo>();
-	private ListView mListView;
-	private ArrayAdapter<FeedFormulaVo> mAdapter;
+	private FormulaAdapter mAdapter;
 
 	// 分页的标志
 	private int pageno = 1;
 	private int pagesize = 5;
-	// 记录总数
-	private int pagecount = 0;
 
 	// 用来查询的过滤变量
 	private City _currentCity;//不使用，因为是自己数据库传来的，现在改用下一种，从网络获取的
@@ -112,123 +113,6 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 
 		});
 
-		/*
-		 * 1.使用PullDownView 2.设置OnPullDownListener 3.从mPullDownView里面获取ListView
-		 */
-		mPullDownView = (PullDownView) findViewById(R.id.formula_pull_down_view);
-		// mPullDownView.setOnPullDownListener(this);
-		mPullDownView.setOnPullDownListener(new OnPullDownListener() {
-
-			@Override
-			public void onRefresh() {
-				// TODO Auto-generated method stub
-				pageno = 1;
-				pagesize = 5;
-				try {
-					String typeid = null;
-					if (formuType != null) {
-						FeedFormulaType ft = (FeedFormulaType) formuType
-								.getSelectedItem();
-						if (ft != null && ft.id!=null&& ft.id > 0) {
-							typeid = ft.id + "";
-						}
-					}
-					String areaid = null;
-					if (_currentCity != null
-							&& _currentCity.getNumber() != null) {
-						areaid = _currentCity.getNumber();
-					}
-					if(area!=null){
-						AreaVo av=(AreaVo)area.getSelectedItem();
-						if(av!=null&&av.id!=null &&av.id>0){
-							areaid=av.id+"";
-						}
-					}
-					String keyword = null;
-					if (et_keyword != null) {
-						keyword = et_keyword.getText().toString();
-					}
-					loadFormulas(mRefreshFormulaListener, typeid, areaid,
-							keyword, pageno + "", pagesize + "");
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-
-			@Override
-			public void onMore() {
-				// TODO Auto-generated method stub
-				if ((pageno + 1) * pagesize > pagecount) {
-					Toast.makeText(getApplicationContext(), "已经没有更多推荐",
-							Toast.LENGTH_SHORT);
-				} else {
-					pageno++;
-					try {
-						String typeid = null;
-						if (formuType != null) {
-							FeedFormulaType ft = (FeedFormulaType) formuType
-									.getSelectedItem();
-							if (ft != null &&ft.id!=null&& ft.id > 0) {
-								typeid = ft.id + "";
-							}
-						}
-						String areaid = null;
-						if (_currentCity != null
-								&& _currentCity.getNumber() != null) {
-							areaid = _currentCity.getNumber();
-						}
-						if(area!=null){
-							AreaVo av=(AreaVo)area.getSelectedItem();
-							if(av!=null&&av.id!=null &&av.id>0){
-								areaid=av.id+"";
-							}
-						}
-						String keyword = null;
-						if (et_keyword != null) {
-							keyword = et_keyword.getText().toString();
-						}
-						loadFormulas(mMoreFormulaListener, typeid, areaid,
-								keyword, pageno + "", pagesize + "");
-
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
-				}
-
-			}
-		});
-		mListView = mPullDownView.getListView();
-
-		// mListView.setOnItemClickListener(this);
-		mListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				//Toast.makeText(getApplicationContext(), "啊，你点中我了 " + position,
-				//		Toast.LENGTH_SHORT).show();
-				try{
-					FeedFormulaVo ff=(FeedFormulaVo)mListView.getItemAtPosition(position);
-					if(ff!=null&&ff.id!=null){
-						Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaDetail.class);
-						intent.putExtra("formula", ff);
-						startActivity(intent);	
-					}
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-			}
-		});
-		mAdapter = new ArrayAdapter<FeedFormulaVo>(this,
-				R.layout.view_pulldown_item, mFfs);
-		mListView.setAdapter(mAdapter);
-
-		//mPullDownView.enableAutoFetchMore(true, 1);
-
 	}
 
 	private void initialView() {
@@ -257,31 +141,9 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 				// TODO Auto-generated method stub
 				try {
 					pageno=1;
-					String typeid = null;
-					if (formuType != null) {
-						FeedFormulaType ft = (FeedFormulaType) formuType
-								.getSelectedItem();
-						if (ft != null &&ft.id!=null&& ft.id > 0) {
-							typeid = ft.id + "";
-						}
-					}
-					String areaid = null;
-					if (_currentCity != null
-							&& _currentCity.getNumber() != null) {
-						areaid = _currentCity.getNumber();
-					}
-					if(area!=null){
-						AreaVo av=(AreaVo)area.getSelectedItem();
-						if(av!=null&& av.id!=null && av.id>0){
-							areaid=av.id+"";
-						}
-					}
-					String keyword = null;
-					if (et_keyword != null) {
-						keyword = et_keyword.getText().toString();
-					}
-					loadFormulas(mFormulaListener, typeid, areaid, keyword,
-							pageno + "", pagesize + "");
+					mFfs.clear();
+					isRefreshing=false;
+					loadFormulas();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -312,6 +174,86 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 				
 			}});
 
+		mFormulasView=(PullToRefreshListView) findViewById(R.id.formula_pull_down_view);
+		mFormulasView.setMode(PullToRefreshBase.Mode.BOTH);
+		mNoms=(RelativeLayout)findViewById(R.id.rl_match_noms);
+		mFfs=new ArrayList<FeedFormulaVo>();
+
+		mFormulasView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+			@Override
+			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+				if (!isRefreshing) {
+					isRefreshing = true;
+
+					mFfs.clear();
+					pageno = 1;
+					String label = DateUtils.formatDateTime(getApplicationContext(),
+							System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
+									| DateUtils.FORMAT_SHOW_DATE
+									| DateUtils.FORMAT_ABBREV_ALL);
+
+					// Update the LastUpdatedLabel
+					refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+					refreshView.getLoadingLayoutProxy(false, true).setPullLabel(
+							getString(R.string.pull_to_refresh_pull_label));
+					refreshView.getLoadingLayoutProxy(false, true)
+							.setRefreshingLabel(
+									getString(R.string.pull_to_refresh_refreshing_label));
+					refreshView.getLoadingLayoutProxy(false, true)
+							.setReleaseLabel(
+									getString(R.string.pull_to_refresh_release_label));
+
+					loadFormulas();
+				} else {
+					mFormulasView.onRefreshComplete();
+				}
+			}
+
+			@Override
+			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+				if (!isRefreshing) {
+					isRefreshing = true;
+
+					pageno++;
+					String label = DateUtils.formatDateTime(getApplicationContext(),
+							System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
+									| DateUtils.FORMAT_SHOW_DATE
+									| DateUtils.FORMAT_ABBREV_ALL);
+
+					// Update the LastUpdatedLabel
+					refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+					refreshView.getLoadingLayoutProxy(false, true).setPullLabel(
+							getString(R.string.pull_to_refresh_from_bottom_pull_label));
+					refreshView.getLoadingLayoutProxy(false, true)
+							.setRefreshingLabel(
+									getString(R.string.pull_to_refresh_from_bottom_refreshing_label));
+					refreshView.getLoadingLayoutProxy(false, true)
+							.setReleaseLabel(
+									getString(R.string.pull_to_refresh_from_bottom_release_label));
+
+					loadFormulas();
+				} else {
+					mFormulasView.onRefreshComplete();
+				}
+			}
+		});
+
+		mFormulasView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				try{
+					FeedFormulaVo ff=(FeedFormulaVo)parent.getAdapter().getItem(position);
+					if(ff!=null&&ff.id!=null){
+						Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaDetail.class);
+						intent.putExtra("formula", ff);
+						startActivity(intent);
+					}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
+
 		// 在控件初始化完成是之后执行初始化数据
 		initialData();
 	}
@@ -319,8 +261,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 	private void initialData() {
 		loadFormulaTypes();
 		loadAreas();
-		loadFormulas(mFormulaListener, null, null, null,
-				pageno + "", pagesize + "");
+		loadFormulas();
 	}
 
 	@Override
@@ -353,9 +294,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 
 			submit = null;
 			et_area = null;
-			mPullDownView = null;
-			// mStrings=null;
-			mListView = null;
+			mFormulasView = null;
 			mAdapter = null;
 			System.gc();
 		} catch (Exception e) {
@@ -453,8 +392,6 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 		}
 	};
 
-
-	
 	private httpReturnJson mFormulaTypesListener = new httpReturnJson() {
 		@Override
 		public void onFailure(int error, String msg) {
@@ -515,10 +452,34 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 	/*
 	 * 加载配方
 	 */
-	private void loadFormulas(httpReturnJson listener, String typeid,
-			String areaid, String keyword, String pno, String psize) {
+	private void loadFormulas() {
 		try {
-			HttpExecuteJson http = new HttpExecuteJson(this, listener);
+
+			String typeid = null;
+			if (formuType != null) {
+				FeedFormulaType ft = (FeedFormulaType) formuType
+						.getSelectedItem();
+				if (ft != null && ft.id!=null&& ft.id > 0) {
+					typeid = ft.id + "";
+				}
+			}
+			String areaid = null;
+			if (_currentCity != null
+					&& _currentCity.getNumber() != null) {
+				areaid = _currentCity.getNumber();
+			}
+			if(area!=null){
+				AreaVo av=(AreaVo)area.getSelectedItem();
+				if(av!=null&&av.id!=null &&av.id>0){
+					areaid=av.id+"";
+				}
+			}
+			String keyword = null;
+			if (et_keyword != null) {
+				keyword = et_keyword.getText().toString();
+			}
+
+			HttpExecuteJson http = new HttpExecuteJson(this, mFormulaListener);
 			Map<String, Object> rps = new HashMap<String, Object>();
 			rps.put("method", "getFeedFormula");
 			if (typeid != null) {
@@ -530,8 +491,8 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 			if (keyword != null) {
 				rps.put("keyword", keyword);
 			}
-			rps.put("pageNo", pno);
-			rps.put("pageSize", psize);
+			rps.put("pageNo", pageno);
+			rps.put("pageSize", pagesize);
 			http.get(new ServiceHelper().GETFORMULATYPE, rps);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -560,16 +521,11 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 						}.getType());
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					mFfs.clear();
-					if(edv.page!=null){
-						pagecount = (int) edv.page.totalItems;	
-					}else{
-						pagecount=0;
-					}
-					List<FeedFormulaVo> temps1 = (ArrayList<FeedFormulaVo>) edv.data;
-					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
+
+					List<FeedFormulaVo> temps2 = (ArrayList<FeedFormulaVo>) edv.data;
+					List<FeedFormulaVo> temps1=new ArrayList<FeedFormulaVo>();
+					if(temps2!=null){
+						for (Object f : temps2) {
 							try {
 								FeedFormulaVo ft = new Gson().fromJson(
 										new Gson().toJson(f),
@@ -577,203 +533,46 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 										}.getType());
 								if (ft != null && ft.name != null) {
 									// temps.add(ft.name);
-									mFfs.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}
-					if(mFfs!=null&&mFfs.size()==0){
-						FeedFormulaVo ft=new FeedFormulaVo();
-						ft.id=null;
-						ft.name="无推荐";
-						mFfs.add(ft);
-					}
-					
-				}
-				try{
-					if((pagecount-(pageno*pagesize))>0){
-						mPullDownView.haveMore=true;
-					}else{
-						mPullDownView.haveMore=false;
-					}
-				}catch(Exception e){e.printStackTrace();}
-				// mStrings.addAll(temps);
-				mAdapter.notifyDataSetChanged();
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidLoad();
-			} catch (Exception e) {
-				e.printStackTrace();
-				// mStrings.addAll(temps);
-				try{
-				mAdapter.notifyDataSetChanged();
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidLoad();}catch(Exception e1){e1.printStackTrace();}
-			}
-			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
-		}
-	};
-
-	private httpReturnJson mRefreshFormulaListener = new httpReturnJson() {
-		@Override
-		public void onFailure(int error, String msg) {
-			UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方失败" + msg);
-		}
-
-		@Override
-		public void onCancel() {
-			// TODO Auto-generated method stub
-			UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方退出");
-		}
-
-		// 获取到饲料配方类型成功
-		public void onSuccess(String result) {
-			// TODO Auto-generated method stub
-			EntityDataPageVo edv = null;
-			try {
-				edv = new Gson().fromJson(result,
-						new TypeToken<EntityDataPageVo>() {
-						}.getType());
-				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					if(edv.page!=null){
-						pagecount = (int) edv.page.totalItems;	
-					}else{
-						pagecount=0;
-					}
-					
-					mFfs.clear();
-					List<FeedFormulaVo> temps1 = (ArrayList<FeedFormulaVo>) edv.data;
-					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								FeedFormulaVo ft = new Gson().fromJson(
-										new Gson().toJson(f),
-										new TypeToken<FeedFormulaVo>() {
-										}.getType());
-								if (ft != null && ft.name != null) {
-									// temps.add(ft.name);
-									mFfs.add(ft);
+									temps1.add(ft);
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
 						}
 					}
-					
-					if(mFfs!=null&&mFfs.size()==0){
-						FeedFormulaVo ft=new FeedFormulaVo();
-						ft.id=null;
-						ft.name="无推荐";
-						mFfs.add(ft);
-					}
-				}
 
-				try{
-					if((pagecount-(pageno*pagesize))>0){
-						mPullDownView.haveMore=true;
+					if(temps1==null||temps1.size()==0){        // mAdapterMyCreate.notifyDataSetChanged();
+						Toast.makeText(ActivityFormulaQuery.this, "没有更多数据了",
+								Toast.LENGTH_SHORT).show();
 					}else{
-						mPullDownView.haveMore=false;
+						mFfs.addAll(temps1);
 					}
-				}catch(Exception e){e.printStackTrace();}
-				// mStrings.addAll(temps);
-				mAdapter.notifyDataSetChanged();
-				// 
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidRefresh();
+
+					if(isRefreshing){
+						mAdapter.notifyDataSetChanged();
+					}else{
+						mAdapter = new FormulaAdapter(ActivityFormulaQuery.this, mFfs);
+						mFormulasView.setAdapter(mAdapter);
+					}
+
+					if(mFfs!=null&&mFfs.size()>0){
+						mFormulasView.setVisibility(View.VISIBLE);
+						mNoms.setVisibility(View.GONE);
+					}else{
+						mFormulasView.setVisibility(View.GONE);
+						mNoms.setVisibility(View.VISIBLE);
+					}
+
+					mFormulasView.onRefreshComplete();
+					isRefreshing = false;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				// mStrings.addAll(temps);
-				try{
-				mAdapter.notifyDataSetChanged();
-				// 
-				// 诉它数据加载完毕;
-				mPullDownView.notifyDidRefresh();}catch(Exception e1){e1.printStackTrace();}
+
 			}
 			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
 		}
-
-	};
-
-	private httpReturnJson mMoreFormulaListener = new httpReturnJson() {
-		@Override
-		public void onFailure(int error, String msg) {
-			UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方失败" + msg);
-		}
-
-		@Override
-		public void onCancel() {
-			// TODO Auto-generated method stub
-			UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方退出");
-		}
-
-		// 获取到饲料配方类型成功
-		public void onSuccess(String result) {
-			// TODO Auto-generated method stub
-			EntityDataPageVo edv = null;
-			try {
-				edv = new Gson().fromJson(result,
-						new TypeToken<EntityDataPageVo>() {
-						}.getType());
-				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					if(edv.page!=null){
-						pagecount = (int) edv.page.totalItems;	
-					}else{
-						pagecount=0;
-					}
-					
-					List<FeedFormulaVo> temps1 = (ArrayList<FeedFormulaVo>) edv.data;
-					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								FeedFormulaVo ft = new Gson().fromJson(
-										new Gson().toJson(f),
-										new TypeToken<FeedFormulaVo>() {
-										}.getType());
-								if (ft != null && ft.name != null) {
-									// temps.add(ft.name);
-									mFfs.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}
-					if(mFfs!=null&&mFfs.size()==0){
-						FeedFormulaVo ft=new FeedFormulaVo();
-						ft.id=null;
-						ft.name="无推荐";
-						mFfs.add(ft);
-					}
-					
-				}
-
-				try{
-					if((pagecount-(pageno*pagesize))>0){
-						mPullDownView.haveMore=true;
-					}else{
-						mPullDownView.haveMore=false;
-					}
-				}catch(Exception e){e.printStackTrace();}
-				// mStrings.addAll(temps);
-				mAdapter.notifyDataSetChanged();
-				// 告诉它获取更多完毕
-				mPullDownView.notifyDidMore();
-			} catch (Exception e) {
-				e.printStackTrace();
-				// mStrings.addAll(temps);
-				try{
-				mAdapter.notifyDataSetChanged();
-				// 告诉它获取更多完毕
-				mPullDownView.notifyDidMore();}catch(Exception e1){e1.printStackTrace();}
-			}
-			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
-		}
-
 	};
 
 	@Override

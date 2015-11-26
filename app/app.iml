@@ -93,5 +93,6 @@
     <orderEntry type="library" exported="" name="xUtils-2.4.7" level="project" />
     <orderEntry type="library" exported="" name="pdgraphview" level="project" />
     <orderEntry type="library" exported="" name="mpchartlib" level="project" />
+    <orderEntry type="module" module-name="pulltofrefresh_library" exported="" />
   </component>
 </module>
