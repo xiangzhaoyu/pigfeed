@@ -93,6 +93,12 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_formula_query_main);
+		try{
+			showWho = getIntent().getIntExtra("showWho", 0);//判断展示那个页面
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		initalTitle();
 		initialView();
 	}
@@ -246,9 +252,15 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 				try{
 					FeedFormulaVo ff=(FeedFormulaVo)parent.getAdapter().getItem(position);
 					if(ff!=null&&ff.id!=null){
-						Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaDetail.class);
-						intent.putExtra("formula", ff);
-						startActivity(intent);
+						if(showWho==1){
+							Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaArtificial.class);
+							intent.putExtra("formula", ff);
+							startActivity(intent);
+						}else{
+							Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaDetail.class);
+							intent.putExtra("formula", ff);
+							startActivity(intent);
+						}
 					}
 				}catch(Exception e){
 					e.printStackTrace();

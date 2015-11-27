@@ -103,6 +103,13 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
         </activity>
         <activity
+            android:name="com.surekam.pigfeed.ui.activity.ActivityFormulaArtificial"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SlideLeft"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+        </activity>
+        <activity
             android:name="com.surekam.pigfeed.ui.activity.ActivityFeedDetail"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
