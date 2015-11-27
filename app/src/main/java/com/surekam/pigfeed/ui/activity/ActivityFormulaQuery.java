@@ -49,6 +49,8 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ActivityFormulaQuery extends Activity implements UncaughtExceptionHandler {
 
+	private int showWho=0;//0是饲料查询，1是跳转到显示智能推荐
+
 	private View customLiveIndexTitleView;
 	private TextView txtTitle;
 	private ImageView ivBack;

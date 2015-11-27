@@ -106,7 +106,9 @@ public class FragmentMain2 extends BaseFragment implements OnClickListener {
 					_context.startActivity(aquery);
 				}break;
 				case 3:{
-
+					Intent aquery=new Intent(_context,ActivityFormulaQuery.class);
+					aquery.putExtra("showWho", 1);
+					_context.startActivity(aquery);
 				}break;
 				default: {
 				}
@@ -124,7 +126,7 @@ public class FragmentMain2 extends BaseFragment implements OnClickListener {
         data.add(new ImageInfo("配方检索", R.drawable.icon1, R.drawable.icon_bg01));
         data.add(new ImageInfo("饲料检索", R.drawable.icon2, R.drawable.icon_bg01));
         data.add(new ImageInfo("价格趋势", R.drawable.icon3, R.drawable.icon_bg01));
-        //data.add(new ImageInfo("联系专家", R.drawable.icon4, R.drawable.icon_bg02));
+        data.add(new ImageInfo("智能推荐", R.drawable.icon4, R.drawable.icon_bg01));
         
     }
 	

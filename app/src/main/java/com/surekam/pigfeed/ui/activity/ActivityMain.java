@@ -37,7 +37,7 @@ public class ActivityMain extends BaseFragmentActivity {
 		getSupportFragmentManager().beginTransaction()
 		.replace(R.id.main_frame, new FragmentMain2()).commit();
 
-		checkVersion();
+		//checkVersion();
 	}
 
 	public void addFragment(Fragment fragment, String name) {
