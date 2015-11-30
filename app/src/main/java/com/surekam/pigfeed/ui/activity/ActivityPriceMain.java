@@ -51,6 +51,7 @@ import com.surekam.pigfeed.bean.AreaVo;
 import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedVo;
 import com.surekam.pigfeed.bean.SearchPriceVo;
+import com.surekam.pigfeed.tools.JsonUtil;
 import com.surekam.pigfeed.ui.adapter.AgencyListAdapter;
 
 /*
@@ -366,26 +367,15 @@ public class ActivityPriceMain extends Activity implements UncaughtExceptionHand
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 					listPrices.clear();
-					try{
-						List<SearchPriceVo> temps1 = (List<SearchPriceVo>) edv.data;
+					List<SearchPriceVo> temps1 = new ArrayList<SearchPriceVo>();//(List<SearchPriceVo>) edv.data;
 						// List<String> temps=new ArrayList<String>();
-						
-						for (Object f : temps1) {
-							try {
-								String temp = new Gson().toJson(f);// dropBlank(f.toString())
-								SearchPriceVo ft = new Gson().fromJson(temp,
-										new TypeToken<SearchPriceVo>() {
-										}.getType());
-								if (ft != null && ft.agencyName != null) {
-									listPrices.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-
-
-					}catch(Exception e){e.printStackTrace();}
+						try{
+							temps1 = JsonUtil.fromJsonArray(
+									JsonUtil.toJson(edv.data),
+									SearchPriceVo.class);}catch (Exception e){}
+					if(temps1!=null&&temps1.size()>0){
+						listPrices.addAll(temps1);
+					}
 
 //					if(listPrices.size()>0){
 						ArrayList<String> xVals = new ArrayList<String>();
@@ -442,13 +432,13 @@ public class ActivityPriceMain extends Activity implements UncaughtExceptionHand
 		@Override
 		public void onFailure(int error, String msg) {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityPriceMain.this, "获取趋势数据失败" + msg);
 		}
 
 		@Override
 		public void onCancel() {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityPriceMain.this, "获取趋势数据退出");
 		}
 	};
 
@@ -474,26 +464,14 @@ public class ActivityPriceMain extends Activity implements UncaughtExceptionHand
 						}.getType());
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					List<AgencyVo> temps1 = (List<AgencyVo>) edv.data;
+					List<AgencyVo> temps1 = new ArrayList<AgencyVo>();//(List<AgencyVo>) edv.data;
 					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								String temp = new Gson().toJson(f);// dropBlank(f.toString())
-								AgencyVo ft = new Gson().fromJson(temp,
-										new TypeToken<AgencyVo>() {
-										}.getType());
-								// AgencyVo ft = new Gson().fromJson(
-								// "{\"id\":2,\"code\":\"NL\",\"name\":\"能量\",\"systemUnitId\":2,\"systemUnitName\":\"系统单位名称2\",\"systemUnitNum\":\"43\",\"systemUnitMax\":\"333\",\"systemUnitMin\":\"8\",\"remark\":\"是由饲料中的碳水化合物、脂肪和蛋白质，经过猪体内氧化而产生的。动物体为维持生命活动和生产过程中都要消耗能量。饲粮中的含能物质主要为玉米和油脂。\",\"sysFlag\":\"1\",\"creatorId\":-1,\"creatorName\":\"admin\",\"createTime\":\"20150105000000\",\"lastModifierId\":-1,\"lastModifiedTime\":\"20150105000000\"}",
-								// new TypeToken<AgencyVo>() {
-								// }.getType());
-								if (ft != null && ft.name != null) {
-									listAgencys.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
+					try{
+						temps1 = JsonUtil.fromJsonArray(
+								JsonUtil.toJson(edv.data),
+								AgencyVo.class);}catch (Exception e){}
+					if(temps1!=null&&temps1.size()>0){
+						listAgencys.addAll(temps1);
 					}
 					if(listAgencys!=null&&listAgencys.size()==0){
 						AgencyVo av=new AgencyVo();

@@ -23,6 +23,7 @@ import com.surekam.pigfeed.bean.AreaVo;
 import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedVo;
 import com.surekam.pigfeed.bean.SearchPriceVo;
+import com.surekam.pigfeed.tools.JsonUtil;
 import com.surekam.pigfeed.ui.adapter.AgencyListAdapter;
 
 import android.app.Activity;
@@ -272,25 +273,14 @@ public class ActivityPriceAgency extends Activity implements UncaughtExceptionHa
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 					
-					List<SearchPriceVo> temps1 = (List<SearchPriceVo>) edv.data;
-					// List<String> temps=new ArrayList<String>();
-					listPrices.clear();
+					List<SearchPriceVo> temps1 = new ArrayList<SearchPriceVo>();//(List<SearchPriceVo>) edv.data;
 					try{
-						for (Object f : temps1) {
-							try {
-								String temp = new Gson().toJson(f);// dropBlank(f.toString())
-								SearchPriceVo ft = new Gson().fromJson(temp,
-										new TypeToken<SearchPriceVo>() {
-										}.getType());
-								if (ft != null && ft.agencyName != null) {
-									listPrices.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}catch(Exception e){e.printStackTrace();}
-//					if(listPrices.size()>0){
+						temps1 = JsonUtil.fromJsonArray(
+								JsonUtil.toJson(edv.data),
+								SearchPriceVo.class);}catch (Exception e){}
+					if(temps1!=null&&temps1.size()>0){
+						listPrices.addAll(temps1);
+					}
 
 						ArrayList<String> xVals = new ArrayList<String>();
 						for (int i = 0; i < listPrices.size(); i++) {
@@ -346,13 +336,13 @@ public class ActivityPriceAgency extends Activity implements UncaughtExceptionHa
 		@Override
 		public void onFailure(int error, String msg) {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityPriceAgency.this, "获取饲料价格失败" + msg);
 		}
 
 		@Override
 		public void onCancel() {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityPriceAgency.this, "获取饲料价格退出");
 		}
 	};
 
