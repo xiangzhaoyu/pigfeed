@@ -276,7 +276,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 	private void initialData() {
 		loadFormulaTypes();
 		loadAreas();
-		loadFormulas();
+		//loadFormulas();
 	}
 
 	@Override
@@ -386,7 +386,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取区域失败" + e.getMessage());
+				UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取区域失败，请联系管理员：" + e.getMessage());
 			}
 		}
 
@@ -450,7 +450,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方类型失败" + e.getMessage());
+				UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方类型失败，请联系管理员：" + e.getMessage());
 			}
 			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
 		}
@@ -564,7 +564,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 			} catch (Exception e) {
 				e.printStackTrace();
 				// mStrings.addAll(temps);
-				UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方失败" + e.getMessage());
+				UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方失败，请联系管理员：" + e.getMessage());
 			}
 			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
 		}

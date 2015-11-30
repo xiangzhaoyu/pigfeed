@@ -23,6 +23,7 @@ import com.surekam.pigfeed.bean.FeedFormulaType;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
 import com.surekam.pigfeed.bean.FeedType;
 import com.surekam.pigfeed.bean.FeedVo;
+import com.surekam.pigfeed.tools.JsonUtil;
 import com.surekam.pigfeed.ui.adapter.FeedAdapter;
 import com.surekam.pigfeed.ui.adapter.FormulaAdapter;
 import com.surekam.pigfeed.ui.view.PullDownView;
@@ -257,7 +258,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 	private void initialData() {
 		loadFeedTypes();
 		loadAreas();
-		loadFeeds();
+		//loadFeeds();
 	}
 
 	@Override
@@ -377,7 +378,11 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						}.getType());
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					List<FeedType> temps1 = (ArrayList<FeedType>) edv.data;
+					List<FeedType> temps1 = new ArrayList<FeedType>();//(ArrayList<FeedType>) edv.data;
+					temps1 = JsonUtil.fromJsonArray(
+							JsonUtil.toJson(edv.data),
+							FeedType.class);
+
 					// List<String> temps=new ArrayList<String>();
 					if(feedTypes!=null){
 						FeedType ft=new FeedType();
@@ -386,26 +391,18 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						ft.name="全部";
 						feedTypes.add(ft);
 					}
-					for (Object f : temps1) {
-						try {
-							FeedType ft = new Gson().fromJson(
-									new Gson().toJson(f),
-									new TypeToken<FeedType>() {
-									}.getType());
-							if (ft != null && ft.name != null) {
-								// temps.add(ft.name);
-								feedTypes.add(ft);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+					if(temps1!=null&&temps1.size()>0){
+						feedTypes.addAll(temps1);
 					}
 					adFs = new ArrayAdapter<FeedType>(ActivityFeedQuery.this,
 							android.R.layout.simple_spinner_item, feedTypes);
 					feedType.setAdapter(adFs);
+				}else{
+					UIHelper.ToastMessage(ActivityFeedQuery.this, "获取饲料类型失败"+edv.getErrorMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				UIHelper.ToastMessage(ActivityFeedQuery.this, "获取饲料类型失败，请联系管理员：" + e.getMessage());
 			}
 			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
 		}
@@ -423,7 +420,11 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						}.getType());
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					List<AreaVo> temps1 = (ArrayList<AreaVo>) edv.data;
+					List<AreaVo> temps1 = new ArrayList<AreaVo>();//(ArrayList<AreaVo>) edv.data;
+					temps1 = JsonUtil.fromJsonArray(
+							JsonUtil.toJson(edv.data),
+							AreaVo.class);
+
 					// List<String> temps=new ArrayList<String>();
 					if(areas!=null){
 						AreaVo av=new AreaVo();
@@ -432,40 +433,31 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						av.name="全部";
 						areas.add(av);
 					}
-					for (Object f : temps1) {
-						try {
-							AreaVo ft = new Gson().fromJson(
-									new Gson().toJson(f),
-									new TypeToken<AreaVo>() {
-									}.getType());
-							if (ft != null && ft.name != null) {
-								// temps.add(ft.name);
-								areas.add(ft);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+					if(temps1!=null&&temps1.size()>0){
+						areas.addAll(temps1);
 					}
-					
 					adArs = new ArrayAdapter<AreaVo>(ActivityFeedQuery.this,
 							android.R.layout.simple_spinner_item, areas);
 					area.setAdapter(adArs);
+				}else{
+					UIHelper.ToastMessage(ActivityFeedQuery.this, "获取区域失败" + edv.getErrorMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				UIHelper.ToastMessage(ActivityFeedQuery.this, "获取区域失败,请联系管理员：" + e.getMessage());
 			}
 		}
 
 		@Override
 		public void onFailure(int error, String msg) {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityFeedQuery.this, "获取区域失败" + msg);
 		}
 
 		@Override
 		public void onCancel() {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityFeedQuery.this, "获取区域退出");
 		}
 	};
 
@@ -482,24 +474,11 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 
-					List<FeedVo> temps2 = (ArrayList<FeedVo>) edv.data;
+					//List<FeedVo> temps2 = (ArrayList<FeedVo>) edv.data;
 					List<FeedVo> temps1=new ArrayList<FeedVo>();
-					if(temps2!=null){
-						for (Object f : temps2) {
-							try {
-								FeedVo ft = new Gson().fromJson(
-										new Gson().toJson(f),
-										new TypeToken<FeedVo>() {
-										}.getType());
-								if (ft != null && ft.name != null) {
-									// temps.add(ft.name);
-									temps1.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}
-					}
+					temps1 = JsonUtil.fromJsonArray(
+							JsonUtil.toJson(edv.data),
+							FeedVo.class);
 
 					if(temps1==null||temps1.size()==0){        // mAdapterMyCreate.notifyDataSetChanged();
 						Toast.makeText(ActivityFeedQuery.this, "没有更多数据了",
@@ -526,23 +505,26 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 					mFormulasView.onRefreshComplete();
 					isRefreshing = false;
 					
+				}else{
+					UIHelper.ToastMessage(ActivityFeedQuery.this, "获取饲料失败" + edv.getErrorMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				// mStrings.addAll(temps);
+				UIHelper.ToastMessage(ActivityFeedQuery.this, "获取饲料失败，请联系管理员：" + e.getMessage());
 			}
 		}
 
 		@Override
 		public void onFailure(int error, String msg) {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityFeedQuery.this, "获取饲料失败" + msg);
 		}
 
 		@Override
 		public void onCancel() {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityFeedQuery.this, "获取饲料退出" );
 		}
 	};
 
