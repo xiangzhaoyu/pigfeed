@@ -13,11 +13,13 @@ import com.surekam.pigfeed.api.HttpExecuteJson;
 import com.surekam.pigfeed.api.ServiceHelper;
 import com.surekam.pigfeed.api.HttpExecuteJson.httpReturnJson;
 import com.surekam.pigfeed.app.UIHelper;
+import com.surekam.pigfeed.bean.AreaVo;
 import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedFormulaRecommandVo;
 import com.surekam.pigfeed.bean.FeedFormulaType;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
 import com.surekam.pigfeed.bean.NutritionVo;
+import com.surekam.pigfeed.tools.JsonUtil;
 import com.surekam.pigfeed.ui.adapter.FeedListAdapter;
 import com.surekam.pigfeed.ui.adapter.NutritionListAdapter;
 import com.surekam.pigfeed.ui.view.PullDownView;
@@ -234,25 +236,15 @@ public class ActivityFormulaDetail extends Activity implements UncaughtException
 						}.getType());
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					List<NutritionVo> temps1 = (ArrayList<NutritionVo>) edv.data;
+					List<NutritionVo> temps1 = new ArrayList<NutritionVo>();//(ArrayList<NutritionVo>) edv.data;
 					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								NutritionVo ft = new Gson().fromJson(
-										new Gson().toJson(f),
-										new TypeToken<NutritionVo>() {
-										}.getType());
-								if (ft != null && ft.name != null) {
-									listNus.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}
-					
-					if(listNus!=null&&listNus.size()==0){
+					try{
+						temps1 = JsonUtil.fromJsonArray(
+								JsonUtil.toJson(edv.data),
+								NutritionVo.class);}catch (Exception e){}
+					if(temps1!=null&&temps1.size()>0){
+						listNus.addAll(temps1);
+					}else {
 						NutritionVo nv=new NutritionVo();
 						nv.id=null;
 						nv.name="无";
@@ -260,15 +252,19 @@ public class ActivityFormulaDetail extends Activity implements UncaughtException
 						nv.systemUnitName="无";
 						listNus.add(nv);
 					}
+
 					nuAdapter = new NutritionListAdapter(listNus, getApplicationContext(),
 							R.layout.fragment_fromula_nutrition_list_item);
 					nuListView.setAdapter(nuAdapter);
 					fixListViewHeight(nuListView);
 					//数据加载完成改变一下scrollview的显示位置
 					sv.scrollTo(0, 0);
+				}else{
+					UIHelper.ToastMessage(ActivityFormulaDetail.this, "获取配方营养素失败" + edv.getErrorMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				UIHelper.ToastMessage(ActivityFormulaDetail.this, "获取配方营养素失败,请联系管理员：" + e.getMessage());
 			}
 			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
 		}
@@ -296,25 +292,15 @@ public class ActivityFormulaDetail extends Activity implements UncaughtException
 						}.getType());
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					List<FeedFormulaRecommandVo> temps1 = (ArrayList<FeedFormulaRecommandVo>) edv.data;
+					List<FeedFormulaRecommandVo> temps1 = new ArrayList<FeedFormulaRecommandVo>();//(ArrayList<FeedFormulaRecommandVo>) edv.data;
 					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								FeedFormulaRecommandVo ft = new Gson().fromJson(
-										new Gson().toJson(f),
-										new TypeToken<FeedFormulaRecommandVo>() {
-										}.getType());
-								if (ft != null && ft.name != null) {
-									listFeeds.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}
-					
-					if(listFeeds!=null&&listFeeds.size()==0){
+					try{
+						temps1 = JsonUtil.fromJsonArray(
+								JsonUtil.toJson(edv.data),
+								FeedFormulaRecommandVo.class);}catch (Exception e){}
+					if(temps1!=null&&temps1.size()>0){
+						listFeeds.addAll(temps1);
+					}else {
 						FeedFormulaRecommandVo ft=new FeedFormulaRecommandVo();
 						ft.id=null;
 						ft.name="无";
@@ -323,6 +309,7 @@ public class ActivityFormulaDetail extends Activity implements UncaughtException
 						ft.value=0l;
 						listFeeds.add(ft);
 					}
+
 					feedAdapter = new FeedListAdapter(listFeeds, getApplicationContext(),
 							R.layout.fragment_formula_recommand_list_item);
 					feedListView.setAdapter(feedAdapter);
@@ -330,9 +317,12 @@ public class ActivityFormulaDetail extends Activity implements UncaughtException
 					fixListViewHeight(feedListView);
 					//数据加载完成改变一下scrollview的显示位置
 					sv.scrollTo(0, 0);
+				}else {
+					UIHelper.ToastMessage(ActivityFormulaDetail.this, "获取配方组成推荐失败" + edv.getErrorMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				UIHelper.ToastMessage(ActivityFormulaDetail.this, "获取配方组成推荐失败,请联系管理员：" + e.getMessage());
 			}
 			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
 		}
