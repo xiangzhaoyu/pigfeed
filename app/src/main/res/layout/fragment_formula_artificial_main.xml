@@ -44,13 +44,28 @@
             </TextView>
             <TextView
                 android:id="@+id/tv_formula_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:maxLength="16"
-                android:textColor="@color/black"
-                android:text=""/>
+                style="@style/textview_info"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/textview_normal"
+                android:layout_width="wrap_content"
+                android:text="内容：" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_formula_content"
+                style="@style/textview_info"
+                android:textAppearance="?android:attr/textAppearanceMedium" >
+            </TextView>
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="fill_parent"

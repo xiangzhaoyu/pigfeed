@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.surekam.pigfeed.R;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
+import com.surekam.pigfeed.bean.FormulaArtificialVo;
 
 /**
  * Created by xiangzy_1 on 2015/11/27.
@@ -21,7 +22,7 @@ public class ActivityFormulaArtificial extends Activity {
 
     private FeedFormulaVo ff;
 
-    private TextView tvFname;
+    private TextView tvFname,tvFContent;
     private ListView lvFormulaAr;
 
 
@@ -61,11 +62,25 @@ public class ActivityFormulaArtificial extends Activity {
 
     private void initialView() {
         tvFname=(TextView)findViewById(R.id.tv_formula_name);
+        tvFContent=(TextView)findViewById(R.id.tv_formula_content);
         lvFormulaAr=(ListView)findViewById(R.id.lv_formula_artifi);
 
         if(ff!=null){
             tvFname.setText(ff.name);
+            tvFContent.setText(ff.content);
         }
+    }
+
+
+    /*
+    智能推荐方法
+     */
+    private FormulaArtificialVo ArtificialFunction(FeedFormulaVo model){
+        FormulaArtificialVo result = new FormulaArtificialVo();
+        try{
+
+        }catch (Exception e){}
+        return result;
     }
 
 }
