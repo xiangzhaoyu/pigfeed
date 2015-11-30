@@ -1,9 +1,10 @@
 package com.surekam.pigfeed.bean;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
 
-public class AreaVo {
+public class AreaVo implements Serializable {
 
 	public Long id;
 	

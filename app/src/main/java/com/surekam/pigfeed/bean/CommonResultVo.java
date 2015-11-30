@@ -1,9 +1,11 @@
 package com.surekam.pigfeed.bean;
 
+import java.io.Serializable;
+
 /**
  * 通用处理结果
  */
-public class CommonResultVo {
+public class CommonResultVo implements Serializable {
 	
 	public static final String ERROR_CODE_SUCCESS = "0";
 	public static final String ERROR_CODE_FAILED = "1";
@@ -78,15 +80,5 @@ public class CommonResultVo {
 		vo.setErrorCode(ERROR_CODE_FAILED_NO_LOGIN);
 		vo.setErrorMsg("还没有登录哦...");
 		return vo;
-	}
-	
-	/**
-	 * 获取Json
-	 * @param vo
-	 * @return
-	 */
-	public static String getJson(CommonResultVo vo) {
-		//return JsonMapper.nonEmptyMapper().toJson(vo);
-		return "";
 	}
 }

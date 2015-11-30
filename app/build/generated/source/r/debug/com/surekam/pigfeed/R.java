@@ -565,7 +565,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ll=0x7f0a0078;
         public static final int login=0x7f0a0012;
         public static final int login_switchBtn=0x7f0a0010;
-        public static final int lv_formula_artifi=0x7f0a0042;
+        public static final int lv_formula_artifi=0x7f0a0043;
         public static final int main_frame=0x7f0a0014;
         public static final int main_vd_device=0x7f0a0053;
         public static final int main_vd_device1=0x7f0a0054;
@@ -626,7 +626,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int rootbg=0x7f0a0059;
         public static final int rotate=0x7f0a000b;
         public static final int scroll_feed_nutrition=0x7f0a0030;
-        public static final int scroll_formula_nutrition=0x7f0a0043;
+        public static final int scroll_formula_nutrition=0x7f0a0044;
         public static final int scroll_nutrition_detail=0x7f0a0027;
         public static final int scrollview=0x7f0a0001;
         public static final int search_container=0x7f0a006f;
@@ -673,7 +673,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tv_content=0x7f0a00ae;
         public static final int tv_feed_content=0x7f0a0037;
         public static final int tv_feed_name=0x7f0a0031;
-        public static final int tv_formula_content=0x7f0a0044;
+        public static final int tv_formula_content=0x7f0a0042;
         public static final int tv_formula_name=0x7f0a0041;
         public static final int tv_formula_usenum=0x7f0a0045;
         public static final int tv_nutrition_content=0x7f0a0068;

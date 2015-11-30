@@ -1,6 +1,7 @@
 package com.surekam.pigfeed.bean;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author lixie
  */
 
-public class FeedFormulaType extends AbstractEntity{
+public class FeedFormulaType extends AbstractEntity implements Serializable{
 	
 	public String code;//编码
 	
