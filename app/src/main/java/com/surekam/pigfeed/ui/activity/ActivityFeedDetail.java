@@ -29,11 +29,13 @@ import com.surekam.pigfeed.api.ServiceHelper;
 import com.surekam.pigfeed.api.HttpExecuteJson.httpReturnJson;
 import com.surekam.pigfeed.app.UIHelper;
 import com.surekam.pigfeed.bean.AgencyVo;
+import com.surekam.pigfeed.bean.AreaVo;
 import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedFormulaRecommandVo;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
 import com.surekam.pigfeed.bean.NutritionVo;
 import com.surekam.pigfeed.bean.SearchPriceVo;
+import com.surekam.pigfeed.tools.JsonUtil;
 import com.surekam.pigfeed.ui.adapter.AgencyListAdapter;
 import com.surekam.pigfeed.ui.adapter.FeedListAdapter;
 import com.surekam.pigfeed.ui.adapter.NutritionListAdapter;
@@ -300,25 +302,16 @@ public class ActivityFeedDetail extends Activity implements UncaughtExceptionHan
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 
-					List<NutritionVo> temps1 = (ArrayList<NutritionVo>) edv.data;
+					List<NutritionVo> temps1 = new ArrayList<NutritionVo>();//(ArrayList<NutritionVo>) edv.data;
 					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								NutritionVo ft = new Gson().fromJson(
-										new Gson().toJson(f),
-										new TypeToken<NutritionVo>() {
-										}.getType());
-								if (ft != null && ft.name != null) {
-									listNus.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}
-					
-					if(listNus!=null&&listNus.size()==0){
+					try{
+					temps1 = JsonUtil.fromJsonArray(
+							JsonUtil.toJson(edv.data),
+							NutritionVo.class);}catch (Exception e){}
+
+					if(temps1!=null&&temps1.size()>0){
+						listNus.addAll(temps1);
+					}else{
 						NutritionVo nv=new NutritionVo();
 						nv.id=null;
 						nv.name="无";
@@ -333,9 +326,12 @@ public class ActivityFeedDetail extends Activity implements UncaughtExceptionHan
 					fixListViewHeight(nuListView);
 					// 数据加载完成改变一下scrollview的显示位置
 					sv.scrollTo(0, 0);
+				}else{
+					UIHelper.ToastMessage(ActivityFeedDetail.this, "获取营养素失败" + edv.getErrorMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				UIHelper.ToastMessage(ActivityFeedDetail.this, "获取营养素失败，请联系管理员：" + e.getMessage());
 			}
 			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
 		}
@@ -363,29 +359,17 @@ public class ActivityFeedDetail extends Activity implements UncaughtExceptionHan
 						}.getType());
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
-					List<AgencyVo> temps1 = (List<AgencyVo>) edv.data;
+					List<AgencyVo> temps1 = new ArrayList<AgencyVo>();//(List<AgencyVo>) edv.data;
 					// List<String> temps=new ArrayList<String>();
-					if(temps1!=null){
-						for (Object f : temps1) {
-							try {
-								String temp = new Gson().toJson(f);// dropBlank(f.toString())
-								AgencyVo ft = new Gson().fromJson(temp,
-										new TypeToken<AgencyVo>() {
-										}.getType());
-								// AgencyVo ft = new Gson().fromJson(
-								// "{\"id\":2,\"code\":\"NL\",\"name\":\"能量\",\"systemUnitId\":2,\"systemUnitName\":\"系统单位名称2\",\"systemUnitNum\":\"43\",\"systemUnitMax\":\"333\",\"systemUnitMin\":\"8\",\"remark\":\"是由饲料中的碳水化合物、脂肪和蛋白质，经过猪体内氧化而产生的。动物体为维持生命活动和生产过程中都要消耗能量。饲粮中的含能物质主要为玉米和油脂。\",\"sysFlag\":\"1\",\"creatorId\":-1,\"creatorName\":\"admin\",\"createTime\":\"20150105000000\",\"lastModifierId\":-1,\"lastModifiedTime\":\"20150105000000\"}",
-								// new TypeToken<AgencyVo>() {
-								// }.getType());
-								if (ft != null && ft.name != null) {
-									listAgencys.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						}	
-					}
-					
-					if(listAgencys!=null&&listAgencys.size()==0){
+					try{
+					temps1 = JsonUtil.fromJsonArray(
+							JsonUtil.toJson(edv.data),
+							AgencyVo.class);
+					}catch (Exception e){}
+
+					if(temps1!=null&&temps1.size()>0){
+						listAgencys.addAll(temps1);
+					}else{
 						AgencyVo av=new AgencyVo();
 						av.id=null;
 						av.name="无";
@@ -400,9 +384,12 @@ public class ActivityFeedDetail extends Activity implements UncaughtExceptionHan
 					fixListViewHeight(agencyListView);
 					// 数据加载完成改变一下scrollview的显示位置
 					sv.scrollTo(0, 0);
+				}else{
+					UIHelper.ToastMessage(ActivityFeedDetail.this, "获取饲料供应商失败" + edv.getErrorMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				UIHelper.ToastMessage(ActivityFeedDetail.this, "获取饲料供应商失败,请联系管理员：" + e.getMessage());
 			}
 			// UIHelper.ToastMessage(_context,"总条数=" + result + "");
 		}
@@ -421,25 +408,14 @@ public class ActivityFeedDetail extends Activity implements UncaughtExceptionHan
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 					try{
-						List<SearchPriceVo> temps1 = (List<SearchPriceVo>) edv.data;
-						// List<String> temps=new ArrayList<String>();
-						for (Object f : temps1) {
-							try {
-								String temp = new Gson().toJson(f);// dropBlank(f.toString())
-								SearchPriceVo ft = new Gson().fromJson(temp,
-										new TypeToken<SearchPriceVo>() {
-										}.getType());
-								// AgencyVo ft = new Gson().fromJson(
-								// "{\"id\":2,\"code\":\"NL\",\"name\":\"能量\",\"systemUnitId\":2,\"systemUnitName\":\"系统单位名称2\",\"systemUnitNum\":\"43\",\"systemUnitMax\":\"333\",\"systemUnitMin\":\"8\",\"remark\":\"是由饲料中的碳水化合物、脂肪和蛋白质，经过猪体内氧化而产生的。动物体为维持生命活动和生产过程中都要消耗能量。饲粮中的含能物质主要为玉米和油脂。\",\"sysFlag\":\"1\",\"creatorId\":-1,\"creatorName\":\"admin\",\"createTime\":\"20150105000000\",\"lastModifierId\":-1,\"lastModifiedTime\":\"20150105000000\"}",
-								// new TypeToken<AgencyVo>() {
-								// }.getType());
-								if (ft != null && ft.agencyName != null) {
-									listPrices.add(ft);
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
+						List<SearchPriceVo> temps1 = new ArrayList<SearchPriceVo>();//(List<SearchPriceVo>) edv.data;
+						temps1 = JsonUtil.fromJsonArray(
+								JsonUtil.toJson(edv.data),
+								SearchPriceVo.class);
+						if(temps1!=null&&temps1.size()>0){
+							listPrices.addAll(temps1);
 						}
+
 					}catch(Exception e){
 						e.printStackTrace();
 					}
@@ -545,13 +521,13 @@ public class ActivityFeedDetail extends Activity implements UncaughtExceptionHan
 		@Override
 		public void onFailure(int error, String msg) {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityFeedDetail.this, "获取价格趋势失败" + msg);
 		}
 
 		@Override
 		public void onCancel() {
 			// TODO Auto-generated method stub
-
+			UIHelper.ToastMessage(ActivityFeedDetail.this, "获取价格趋势退出");
 		}
 	};
 
