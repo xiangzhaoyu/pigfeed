@@ -364,9 +364,10 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 
 					List<AreaVo> temps1 = new ArrayList<AreaVo>();//(ArrayList<AreaVo>) edv.data;
+					try{
 					temps1 = JsonUtil.fromJsonArray(
 							JsonUtil.toJson(edv.data),
-							AreaVo.class);
+							AreaVo.class);}catch (Exception e){}
 					// List<String> temps=new ArrayList<String>();
 					if(areas!=null){
 						AreaVo av=new AreaVo();
@@ -426,9 +427,10 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 					List<FeedFormulaType> temps1 = new ArrayList<FeedFormulaType>();//(ArrayList<FeedFormulaType>) edv.data;
+					try{
 					temps1 = JsonUtil.fromJsonArray(
 							JsonUtil.toJson(edv.data),
-							FeedFormulaType.class);
+							FeedFormulaType.class);}catch (Exception e){}
 
 					// List<String> temps=new ArrayList<String>();
 					if(formulaTypes!=null){
@@ -530,9 +532,10 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 
 					List<FeedFormulaVo> temps1=new ArrayList<FeedFormulaVo>();
+					try{
 					temps1 = JsonUtil.fromJsonArray(
 							JsonUtil.toJson(edv.data),
-							FeedFormulaVo.class);
+							FeedFormulaVo.class);}catch (Exception e){}
 
 					if(temps1==null||temps1.size()==0){        // mAdapterMyCreate.notifyDataSetChanged();
 						Toast.makeText(ActivityFormulaQuery.this, "没有更多数据了",

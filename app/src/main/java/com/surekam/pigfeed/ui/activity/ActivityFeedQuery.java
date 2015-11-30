@@ -379,9 +379,10 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 					List<FeedType> temps1 = new ArrayList<FeedType>();//(ArrayList<FeedType>) edv.data;
+					try{
 					temps1 = JsonUtil.fromJsonArray(
 							JsonUtil.toJson(edv.data),
-							FeedType.class);
+							FeedType.class);}catch (Exception e){}
 
 					// List<String> temps=new ArrayList<String>();
 					if(feedTypes!=null){
@@ -421,9 +422,10 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 				if ((edv != null)
 						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
 					List<AreaVo> temps1 = new ArrayList<AreaVo>();//(ArrayList<AreaVo>) edv.data;
+					try{
 					temps1 = JsonUtil.fromJsonArray(
 							JsonUtil.toJson(edv.data),
-							AreaVo.class);
+							AreaVo.class);}catch (Exception e){}
 
 					// List<String> temps=new ArrayList<String>();
 					if(areas!=null){
@@ -476,9 +478,10 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 
 					//List<FeedVo> temps2 = (ArrayList<FeedVo>) edv.data;
 					List<FeedVo> temps1=new ArrayList<FeedVo>();
+					try{
 					temps1 = JsonUtil.fromJsonArray(
 							JsonUtil.toJson(edv.data),
-							FeedVo.class);
+							FeedVo.class);}catch (Exception e){}
 
 					if(temps1==null||temps1.size()==0){        // mAdapterMyCreate.notifyDataSetChanged();
 						Toast.makeText(ActivityFeedQuery.this, "没有更多数据了",
