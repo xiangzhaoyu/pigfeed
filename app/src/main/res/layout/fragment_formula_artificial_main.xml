@@ -66,11 +66,32 @@
             </TextView>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_pb_ar"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/pb_sum_ar"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                style="?android:attr/progressBarStyleHorizontal"/>
+<TextView
+    android:id="@+id/tv_sum_ar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    />
+        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_list_ar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

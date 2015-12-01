@@ -254,7 +254,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 					FeedFormulaVo ff=(FeedFormulaVo)parent.getAdapter().getItem(position);
 					if(ff!=null&&ff.id!=null){
 						if(showWho==1){
-							Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaArtificial.class);
+							Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaArtificial1.class);
 							intent.putExtra("formula", ff);
 							startActivity(intent);
 						}else{
