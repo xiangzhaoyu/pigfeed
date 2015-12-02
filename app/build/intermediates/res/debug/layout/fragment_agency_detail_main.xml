@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rootblock_default_bg"
+    android:background="@color/graywhite"
     android:orientation="vertical" >
 
     <!-- 顶部导航栏 -->
@@ -30,7 +30,9 @@
         android:id="@+id/scroll_nutrition_detail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" >
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -41,12 +43,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical" >
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="名称：" >
+                    android:text="名称" >
                 </TextView>
 
                 <TextView
@@ -60,12 +62,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="类型：" >
+                    android:text="类型" >
                 </TextView>
 
                 <TextView
@@ -79,12 +82,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="区域：" >
+                    android:text="区域" >
                 </TextView>
 
                 <TextView
@@ -98,12 +102,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="电话：" >
+                    android:text="电话" >
                 </TextView>
 
                 <TextView
@@ -117,12 +122,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="地址：" >
+                    android:text="地址" >
                 </TextView>
 
                 <TextView
@@ -136,12 +142,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="联系人：" >
+                    android:text="联系人" >
                 </TextView>
 
                 <TextView
@@ -157,12 +164,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="内容：" >
+                    android:text="内容" >
                 </TextView>
 
                 <TextView
