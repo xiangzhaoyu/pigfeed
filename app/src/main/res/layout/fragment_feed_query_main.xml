@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rootblock_default_bg"
+    android:background="@color/graywhite"
     android:orientation="vertical" >
     
     <!-- 顶部导航栏 -->
@@ -26,6 +26,10 @@
         android:background="@drawable/about_page_divline" >
     </LinearLayout>
     
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -37,34 +41,38 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <TextView
                 style="@style/textview_normal"
-                android:text="区域：" >
+                android:text="区域" >
             </TextView>
 
             <Spinner
                 android:id="@+id/spinner_formula_area"
-                style="@style/spinner_normal" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/spinnerDropDownItemStyle" >
             </Spinner>
-            
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <TextView
                 style="@style/textview_normal"
-                android:text="类型：" >
+                android:text="类型" >
             </TextView>
 
             <Spinner
                 android:id="@+id/spinner_formula_type"
-                style="@style/spinner_normal" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/spinnerDropDownItemStyle" >
             </Spinner>
         </LinearLayout>
 
@@ -75,6 +83,7 @@
             android:orientation="horizontal" >
 
             <TextView
+                android:visibility="gone"
                 style="@style/textview_normal"
                 android:text="关键字：" >
             </TextView>
@@ -87,6 +96,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -125,6 +135,7 @@
             android:textSize="18dp"
             android:textColor="@color/black"/>
     </RelativeLayout>
+</LinearLayout>
 
 
 

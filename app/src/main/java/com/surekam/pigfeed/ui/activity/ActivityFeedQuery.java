@@ -56,6 +56,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 	private View customLiveIndexTitleView;
 	private TextView txtTitle;
 	private ImageView ivBack;
+	private TextView tvOpe;
 
 	private Button submit;
 	private EditText et_keyword;
@@ -125,6 +126,23 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 
 			}
 
+		});
+
+		tvOpe=(TextView)findViewById(R.id.title_operate);
+		tvOpe.setVisibility(View.VISIBLE);
+		tvOpe.setText("查询");
+		tvOpe.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				try {
+					pageno=1;
+					mfs.clear();
+					isRefreshing=false;
+					loadFeeds();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		});
 
 	}
