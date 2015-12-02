@@ -52,6 +52,7 @@ public class ActivityFormulaArtificial2 extends Activity {
     private View customLiveIndexTitleView;
     private TextView txtTitle;
     private ImageView ivBack;
+    private TextView tvOpe;
 
     private static PfDb mPfDb;
 
@@ -100,6 +101,77 @@ public class ActivityFormulaArtificial2 extends Activity {
 
             }
 
+        });
+
+        tvOpe=(TextView)findViewById(R.id.title_operate);
+        tvOpe.setVisibility(View.VISIBLE);
+        tvOpe.setText("计算");
+        tvOpe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFormulaArtificial2.this);
+
+                mfsa=new String[mfs.size()];
+                mfsb=new boolean[mfs.size()];
+                for(int i=0;i<mfs.size();i++){
+                    mfsa[i]=mfs.get(i).name;
+                    mfsb[i]=false;
+                }
+                MultiChoiceID.clear();
+                perFeedNur=new ArrayList<ArtificialNur>();
+                arFeedNur=new ArrayList<ArtificialNur>();
+
+                //builder.setIcon(R.drawable.ic_launcher);
+                builder.setTitle("多项选择");
+                //  设置多选项
+                builder.setMultiChoiceItems(mfsa,
+                        mfsb,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1, boolean arg2) {
+                                // TODO Auto-generated method stub
+                                if (arg2) {
+                                    MultiChoiceID.add(arg1);
+                                    //String tip = "你选择的ID为"+arg1+",值为"+mfsa[arg1];
+                                    //Toast toast = Toast.makeText(getApplicationContext(), tip, Toast.LENGTH_SHORT);
+                                    //toast.show();
+                                }
+                                else {
+                                    MultiChoiceID.remove((Integer)arg1);
+                                }
+                            }
+                        });
+                //  设置确定按钮
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO Auto-generated method stub
+                        String str = "";
+                        int size = MultiChoiceID.size();
+                        for(int i = 0; i < size; i++) {
+                            str += (mfs.get(MultiChoiceID.get(i)).id+",");
+                        }
+                        //Toast toast = Toast.makeText(getApplicationContext(), "你选择了"+str, Toast.LENGTH_LONG);
+                        //toast.show();
+                        feedids=str;
+                        //执行计算
+                        excute();
+                    }
+                });
+                //  设置取消按钮
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+                builder.create().show();
+            }
         });
 
     }

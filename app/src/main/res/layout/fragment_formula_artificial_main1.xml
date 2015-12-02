@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@drawable/rootblock_default_bg"
+    android:background="@color/graywhite"
     android:layout_height="match_parent">
     <!-- 顶部导航栏 -->
 
@@ -26,6 +26,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -51,7 +52,9 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
         <LinearLayout
             android:id="@+id/ll_list_ar"
             android:layout_width="fill_parent"
