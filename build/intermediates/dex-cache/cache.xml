@@ -2,46 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\xUtils-2.4.7.jar"
+        jar="E:\software\adt-bundle-windows-x86-20130917\adt-bundle-windows-x86-20130917\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="604adce72a320783de425348e53e7802b20c3fb7">
-        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\xUtils-2.4.7-c7ccb5b91ba53e3993cde41959ff48e2a9c3ffbf.jar" />
-    </item>
-    <item
-        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\square-otto-1.3.2.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="e30477de45b9cdaac312c7593158e6dcb9a41e5d">
-        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\square-otto-1.3.2-eedd6ccd79dd8dde75132a53a443f9a7f356c9c6.jar" />
-    </item>
-    <item
-        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\nineoldandroids-2.4.0-2.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
-        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-2-587dda964a55f198a9a51e022425897f9b9c4ac1.jar" />
-    </item>
-    <item
-        jar="C:\Users\xiangzy_1\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568">
-        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\gson-2.2.4-d499a0d72b1800a1b26e1e5e2cced51533c3681e.jar" />
-    </item>
-    <item
-        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\exploded-aar\pigfeed\pulltofrefresh_library\unspecified\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="36114cd2cc661df32429a6f9e4dacec964e0b610">
-        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\classes-801bdbad68394e318ca6412278b94f1f7b583353.jar" />
-    </item>
-    <item
-        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\pdgraphview.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="1e551e3a596c973dbe87fde3f832c1444b39a4ef">
-        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\pdgraphview-385166baa915665bd447450c08fca8750b9fb63c.jar" />
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-20bd1bbc38f58db4cfb30fbae524713ace6e2679.jar" />
     </item>
     <item
         jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\mpchartlib.jar"
@@ -51,11 +16,46 @@
         <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\mpchartlib-16dca0d07e6abc3e7ce23b6a42cbe8cffa7fdac6.jar" />
     </item>
     <item
-        jar="E:\software\adt-bundle-windows-x86-20130917\adt-bundle-windows-x86-20130917\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\pdgraphview.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-20bd1bbc38f58db4cfb30fbae524713ace6e2679.jar" />
+        sha1="1e551e3a596c973dbe87fde3f832c1444b39a4ef">
+        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\pdgraphview-385166baa915665bd447450c08fca8750b9fb63c.jar" />
+    </item>
+    <item
+        jar="C:\Users\xiangzy_1\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\gson-2.2.4-d499a0d72b1800a1b26e1e5e2cced51533c3681e.jar" />
+    </item>
+    <item
+        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\square-otto-1.3.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e30477de45b9cdaac312c7593158e6dcb9a41e5d">
+        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\square-otto-1.3.2-eedd6ccd79dd8dde75132a53a443f9a7f356c9c6.jar" />
+    </item>
+    <item
+        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\xUtils-2.4.7.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="604adce72a320783de425348e53e7802b20c3fb7">
+        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\xUtils-2.4.7-c7ccb5b91ba53e3993cde41959ff48e2a9c3ffbf.jar" />
+    </item>
+    <item
+        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\exploded-aar\pigfeed\pulltofrefresh_library\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="df17c4d692fdd9e8561958c478f95ac356c28e1b">
+        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\classes-801bdbad68394e318ca6412278b94f1f7b583353.jar" />
+    </item>
+    <item
+        jar="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\libs\nineoldandroids-2.4.0-2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
+        <dex dex="C:\Users\xiangzy_1\StudioProjects\pigfeed\app\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-2-587dda964a55f198a9a51e022425897f9b9c4ac1.jar" />
     </item>
 
 </items>

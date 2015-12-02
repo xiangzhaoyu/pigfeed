@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/rootblock_default_bg" >
+    android:background="@color/graywhite" >
 
     <GridView
         android:id="@+id/gridView1"
@@ -16,6 +16,7 @@
     </GridView>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:background="@color/linearlayout_background2"

@@ -55,6 +55,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 	private View customLiveIndexTitleView;
 	private TextView txtTitle;
 	private ImageView ivBack;
+	private TextView tvOpe;
 
 	private Button submit;
 	private EditText et_area;
@@ -124,6 +125,23 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 
 			}
 
+		});
+
+		tvOpe=(TextView)findViewById(R.id.title_operate);
+		tvOpe.setVisibility(View.VISIBLE);
+		tvOpe.setText("查询");
+		tvOpe.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				try {
+					pageno=1;
+					mFfs.clear();
+					isRefreshing=false;
+					loadFormulas();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		});
 
 	}

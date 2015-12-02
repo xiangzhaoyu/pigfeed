@@ -405,20 +405,19 @@
 
     <!-- 20150104框架之外的风格定义 -->
     <style name="textview_normal">
-        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">12dip</item>
         <item name="android:typeface">sans</item>
-        <item name="android:textColor">#bf0d4d76</item>
+        <item name="android:textColor">#000000</item>
     </style>
     <style name="spinner_normal">
-        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="edittext_normal">
-        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="title_update_progressbar_style">
