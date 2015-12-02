@@ -108,7 +108,11 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 		customLiveIndexTitleView = findViewById(R.id.title_formulaquery);
 		txtTitle = (TextView) customLiveIndexTitleView
 				.findViewById(R.id.title_text_nav);
-		txtTitle.setText("配方查询");
+		if(showWho==1){
+			txtTitle.setText("智能推荐");
+		}else{
+			txtTitle.setText("配方查询");
+		}
 
 		ivBack = (ImageView) findViewById(R.id.title_back);
 		ivBack.setOnClickListener(new OnClickListener() {

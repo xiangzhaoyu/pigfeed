@@ -110,6 +110,12 @@ public class ActivityFormulaArtificial2 extends Activity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFormulaArtificial2.this);
 
+                mfsa=new String[mfs.size()];
+                mfsb=new boolean[mfs.size()];
+                for(int i=0;i<mfs.size();i++){
+                    mfsa[i]=mfs.get(i).name;
+                    mfsb[i]=false;
+                }
                 MultiChoiceID.clear();
                 //builder.setIcon(R.drawable.ic_launcher);
                 builder.setTitle("多项选择");
@@ -141,13 +147,13 @@ public class ActivityFormulaArtificial2 extends Activity {
                         String str = "";
                         int size = MultiChoiceID.size();
                         for(int i = 0; i < size; i++) {
-                            str += (MultiChoiceID.get(i)+",");
+                            str += (mfs.get(MultiChoiceID.get(i)).id+",");
                         }
                         //Toast toast = Toast.makeText(getApplicationContext(), "你选择了"+str, Toast.LENGTH_LONG);
                         //toast.show();
                         feedids=str;
                         //执行计算
-                        excute1();
+                        excute();
                     }
                 });
                 //  设置取消按钮
@@ -177,6 +183,7 @@ public class ActivityFormulaArtificial2 extends Activity {
     }
 
     private void initialData(){
+        mPfDb=getmPfDb();
         try{
             HttpExecuteJson http = new HttpExecuteJson(this, mFeedsListener);
             Map<String, Object> rps = new HashMap<String, Object>();
@@ -188,73 +195,6 @@ public class ActivityFormulaArtificial2 extends Activity {
     }
 
     private void excute(){
-        try{
-            List<ArtificialNur> formulaNur=mPfDb.getFormulaNurs(ff.id+"");
-            for(ArtificialNur fn:formulaNur){
-                try{
-                    if(feedids!=null&&feedids.length()>0){
-                        List<Long> maxFs=new ArrayList<Long>();
-                        List<Long> minFs=new ArrayList<Long>();
-                        List<ArtificialNur> maxfeedNur=mPfDb.getFeedMaxNurs(feedids.substring(0,feedids.length()-1), fn.Cid, fn.UnitNumber);
-                        List<ArtificialNur> minfeedNur=mPfDb.getFeedMinNurs(feedids.substring(0,feedids.length()-1),fn.Cid,fn.UnitNumber);
-                        if(maxfeedNur!=null&&minfeedNur!=null&&maxfeedNur.size()>0&&minfeedNur.size()>0){
-                            for(ArtificialNur a:maxfeedNur){
-                                if(!maxFs.contains(a.Mid)){
-                                    maxFs.add(a.Mid);
-                                }
-                            }
-                            for(ArtificialNur a:minfeedNur){
-                                if(!minFs.contains(a.Mid)){
-                                    minFs.add(a.Mid);
-                                }
-                            }
-                            if(maxFs.size()>minFs.size()){
-                                Long temp=minFs.get(0);
-                                for(int i=0;i<(maxFs.size()-minFs.size());i++){
-                                    maxFs.add(temp);
-                                }
-                            }else{
-                                Long temp=maxFs.get(0);
-                                for(int i=0;i<(minFs.size()-maxFs.size());i++){
-                                    minFs.add(temp);
-                                }
-                            }
-                            int count=maxFs.size();
-                            for(int i=0;i<count;i++){
-
-                            }
-                        }else{
-                            List<ArtificialNur> xx=mPfDb.getMaxFeedNurs(fn.Cid,fn.UnitNumber);
-                            String str="";
-                            for(ArtificialNur x:xx){
-                                str=str+x.Cname+",";
-                            }
-                            UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"当前选择的饲料不能生成，"+fn.Cname+"含量不够，请选择："+str+"中的一种或几种！");
-                        }
-                    }else{
-                        UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"请选择2种以上饲料");
-                    }
-                }catch (Exception e){}
-            }
-            List<FeedVo> selectFeeds=new ArrayList<FeedVo>();
-            for(FeedVo f:mfs){
-                if(MultiChoiceID.contains(f.id)){
-                    try{
-                        selectFeeds.add(f);
-                        for(ArtificialNur fn:formulaNur){
-                            try{
-                                List<ArtificialNur> feedNur=mPfDb.getFeedNurs(f.id);
-
-                            }catch (Exception e){}
-                        }
-                    }catch (Exception e){}
-                }
-            }
-
-        }catch (Exception e){}
-    }
-
-    private void excute1(){
         try{
             //获取配方所含营养素组成
             List<ArtificialNur> formulaNur=mPfDb.getFormulaNurs(ff.id+"");
@@ -307,8 +247,8 @@ public class ActivityFormulaArtificial2 extends Activity {
                                     List<ArtificialNur> perFeedNur=new ArrayList<ArtificialNur>();
                                     for(int i=0;i<feedNur.size();i++){
                                         try{
-                                            ArtificialNur temp=feedNur.get(i);
-                                            ArtificialNur temp1=feedNur.get(feedNur.size()-i);
+                                            ArtificialNur temp=(ArtificialNur)feedNur.get(i).clone();
+                                            ArtificialNur temp1=(ArtificialNur)feedNur.get(feedNur.size()-i-1);
                                             temp.UnitNumber=temp1.UnitNumber/totalNumber;
                                             perFeedNur.add(temp);
                                         }catch (Exception e){}
@@ -326,7 +266,7 @@ public class ActivityFormulaArtificial2 extends Activity {
                                     if(xx!=null&&xx.size()>0){
                                         String str="";
                                         for(ArtificialNur x:xx){
-                                            str=str+x.Cname+",";
+                                            str=str+x.Mname+",";
                                         }
                                         UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"当前选择的饲料："+fn.Cname+"含量过高，请将"+str+"一种或者几种选入！");
                                     }else{
@@ -338,7 +278,7 @@ public class ActivityFormulaArtificial2 extends Activity {
                                 if(xx!=null&&xx.size()>0){
                                     String str="";
                                     for(ArtificialNur x:xx){
-                                        str=str+x.Cname+",";
+                                        str=str+x.Mname+",";
                                     }
                                     UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"当前选择的饲料："+fn.Cname+"含量过低，请将"+str+"一种或者几种选入！");
                                 }else{
