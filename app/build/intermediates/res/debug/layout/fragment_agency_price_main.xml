@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rootblock_default_bg"
+    android:background="@color/graywhite"
     android:orientation="vertical" >
 
     <!-- 顶部导航栏 -->
@@ -30,7 +30,9 @@
         android:id="@+id/scroll_feed_nutrition"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" >
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -41,12 +43,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical" >
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="饲料名称：" >
+                    android:text="饲料名称" >
                 </TextView>
 
                 <TextView
@@ -60,12 +62,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="供应商名称：" >
+                    android:text="供应商名称" >
                 </TextView>
 
                 <TextView
@@ -80,12 +83,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     style="@style/textview_normal"
                     android:layout_width="wrap_content"
-                    android:text="图表：" >
+                    android:text="图表" >
                 </TextView>
 
                 <Spinner
