@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/band_com_down" android:state_checked="true" android:state_enabled="true"/>
+    <item android:drawable="@drawable/band_com_up"/>
+
+</selector><!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/drawable/radio_device_computer_seletor.xml -->

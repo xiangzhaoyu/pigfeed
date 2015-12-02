@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/navigate_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.0"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" >
+
+        <RadioGroup
+            android:id="@+id/rg_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp" >
+
+            <RadioButton
+                android:id="@+id/rb_1"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/btn_radio_selector"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="手机"
+                android:textColor="@drawable/btn_radio_text_color_selector"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rb_2"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/btn_radio_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="宽带"
+                android:textColor="@drawable/btn_radio_text_color_selector"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+        
+
+<RelativeLayout 
+
+android:layout_width="match_parent" 
+
+
+android:layout_height="match_parent" 
+
+android:orientation="vertical" 
+
+
+
+>
+        
+        <com.surekam.pigfeed.ui.view.ViewDevice
+            android:id="@+id/main_vd_device"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/bottom_background" >
+        </com.surekam.pigfeed.ui.view.ViewDevice>
+        
+        <com.surekam.pigfeed.ui.view.ViewDevice
+            android:id="@+id/main_vd_device1"
+            android:layout_below="@+id/main_vd_device"
+                
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/bottom_background" >
+        </com.surekam.pigfeed.ui.view.ViewDevice>
+        
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.0"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.0"
+            android:orientation="horizontal"
+            android:paddingTop="8dp" >
+
+            <LinearLayout
+                android:id="@+id/grid_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.0"
+                android:background="@drawable/grid_selector"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp" >
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/home_station_list" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="终端信息"
+                    android:textColor="@color/deep_blue" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grid_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.0"
+                android:background="@drawable/grid_selector"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp" >
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/home_router_info" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="上网报表"
+                    android:textColor="@color/deep_blue" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.0"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/grid_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.0"
+                android:background="@drawable/grid_selector"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp" >
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/home_flow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="上网时段"
+                    android:textColor="@color/deep_blue" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/grid_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.0"
+                android:background="@drawable/grid_selector"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp" >
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/home_black_list" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="过滤设置"
+                    android:textColor="@color/deep_blue" />
+            </LinearLayout>
+        </LinearLayout>
+        
+           <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:background="@drawable/grid_selector"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" >
+       
+          <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:layout_weight="1.0"
+                    android:paddingTop="8dp"
+                    android:text="广告位"
+                    android:textColor="@color/deep_blue" />
+          </LinearLayout>
+    </LinearLayout>
+   
+    
+    
+</LinearLayout><!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/layout/fragment_main.xml -->

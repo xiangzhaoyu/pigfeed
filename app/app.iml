@@ -90,6 +90,7 @@
     <orderEntry type="library" exported="" name="square-otto-1.3.2" level="project" />
     <orderEntry type="library" exported="" name="nineoldandroids-2.4.0-2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-18.0.0" level="project" />
+    <orderEntry type="library" exported="" name="xUtils-2.6.14" level="project" />
     <orderEntry type="library" exported="" name="xUtils-2.4.7" level="project" />
     <orderEntry type="library" exported="" name="pdgraphview" level="project" />
     <orderEntry type="library" exported="" name="mpchartlib" level="project" />

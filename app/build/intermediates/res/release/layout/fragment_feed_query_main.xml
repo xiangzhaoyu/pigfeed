@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/graywhite"
+    android:orientation="vertical" >
+    
+    <!-- 顶部导航栏 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/linearLayout_header_height"
+        android:layout_marginTop="5dip" >
+
+        <include
+            android:id="@+id/title_formulaquery"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/linearLayout_header_height"
+            layout="@layout/activity_custom_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_gravity="bottom"
+        android:background="@drawable/about_page_divline" >
+    </LinearLayout>
+    
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/textview_normal"
+                android:text="区域" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner_formula_area"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/spinnerDropDownItemStyle" >
+            </Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                style="@style/textview_normal"
+                android:text="类型" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner_formula_type"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/spinnerDropDownItemStyle" >
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:visibility="gone"
+                style="@style/textview_normal"
+                android:text="关键字：" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/edittext_formula_keyword"
+                style="@style/edittext_normal"
+                android:inputType="text" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_formula_submit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="查询" >
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/formula_pull_down_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="#00ffffff"
+        ptr:ptrHeaderTextColor="@color/black"
+
+        />
+    <RelativeLayout
+        android:id="@+id/rl_match_noms"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_marginTop="60dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="当前没有合适的饲料推荐！"
+            android:textSize="18dp"
+            android:textColor="@color/black"/>
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+</LinearLayout>
+<!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/layout/fragment_feed_query_main.xml -->

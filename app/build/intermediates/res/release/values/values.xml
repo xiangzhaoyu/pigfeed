@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="alphaGray">#55999999</color>
+    <color name="background">#e5e5e5</color>
+    <color name="black">#000000</color>
+    <color name="blue">#0000FF</color>
+    <color name="blue_sky">#A0C8FF</color>
+    <color name="darkGray">#ff999999</color>
+    <color name="deep_blue">#014D6D</color>
+    <color name="full_transparent">#00000000</color>
+    <color name="gold">#FFD700</color>
+    <color name="gray">#808080</color>
+    <color name="grayTrans">#50CCCCCC</color>
+    <color name="grayslate">#708090</color>
+    <color name="graywhite">#F5F5F5</color>
+    <color name="green">#008000</color>
+    <color name="half_transparent">#aa000000</color>
+    <color name="lemonyellow">#FFFACD</color>
+    <color name="lightblue">#0083FF</color>
+    <color name="linearlayout_background">#7f0d4d76</color>
+    <color name="linearlayout_background2">#bf0d4d76</color>
+    <color name="orange">#FFA500</color>
+    <color name="pink">#FFC0CB</color>
+    <color name="purple">#800080</color>
+    <color name="radio_end_color">#fff7f0</color>
+    <color name="radio_select_end_color">#fefbf3</color>
+    <color name="radio_select_start_color">#f8cc7e</color>
+    <color name="radio_select_stroke_color">#fe7b03</color>
+    <color name="radio_start_color">#ffffff</color>
+    <color name="red">#FF0000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yahei">#ff333333</color>
+    <color name="yahui">#ff666666</color>
+    <color name="yellow">#FFFF00</color>
+    <declare-styleable name="PullToRefresh"><attr format="reference|color" name="ptrRefreshableViewBackground"/><attr format="reference|color" name="ptrHeaderBackground"/><attr format="reference|color" name="ptrHeaderTextColor"/><attr format="reference|color" name="ptrHeaderSubTextColor"/><attr name="ptrMode"><flag name="disabled" value="0x0"/><flag name="pullFromStart" value="0x1"/><flag name="pullFromEnd" value="0x2"/><flag name="both" value="0x3"/><flag name="manualOnly" value="0x4"/><flag name="pullDownFromTop" value="0x1"/><flag name="pullUpFromBottom" value="0x2"/></attr><attr format="reference|boolean" name="ptrShowIndicator"/><attr format="reference" name="ptrDrawable"/><attr format="reference" name="ptrDrawableStart"/><attr format="reference" name="ptrDrawableEnd"/><attr format="reference|boolean" name="ptrOverScroll"/><attr format="reference" name="ptrHeaderTextAppearance"/><attr format="reference" name="ptrSubHeaderTextAppearance"/><attr name="ptrAnimationStyle"><flag name="rotate" value="0x0"/><flag name="flip" value="0x1"/></attr><attr format="reference|boolean" name="ptrScrollingWhileRefreshingEnabled"/><attr format="reference|boolean" name="ptrListViewExtrasEnabled"/><attr format="reference|boolean" name="ptrRotateDrawableWhilePulling"/><attr format="reference|color" name="ptrAdapterViewBackground"/><attr format="reference" name="ptrDrawableTop"/><attr format="reference" name="ptrDrawableBottom"/></declare-styleable>
+    <declare-styleable name="drop_down_list_attr"><attr format="boolean" name="isDropDownStyle"/><attr format="boolean" name="isOnBottomStyle"/><attr format="boolean" name="isAutoLoadOnBottom"/></declare-styleable>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/build/intermediates/exploded-aar/pigfeed/pulltofrefresh_library/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="linearLayout_header_height">58dip</dimen>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/build/intermediates/exploded-aar/pigfeed/pulltofrefresh_library/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <item name="gridview" type="id"/>
+    <item name="scrollview" type="id"/>
+    <item name="webview" type="id"/>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/app_string.xml -->
+    <eat-comment/>
+    <string name="app_error">应用程序错误</string>
+    <string name="app_error_message">很抱歉，应用程序出现错误，即将退出。\n请提交错误报告，我们会尽快修复这个问题！</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="app_name">猪饲料专家</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/app_string.xml -->
+    <eat-comment/>
+    <string name="app_run_code_error">应用程序运行时异常</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="drop_down_list_footer_default_text">加载更多</string>
+    <string name="drop_down_list_footer_loading_text">正在加载…</string>
+    <string name="drop_down_list_footer_no_more_text">已全部加载完成</string>
+    <string name="drop_down_list_header_default_text">点击刷新…</string>
+    <string name="drop_down_list_header_loading_text">正在刷新…</string>
+    <string name="drop_down_list_header_pull_text">下拉刷新…</string>
+    <string name="drop_down_list_header_release_text">松开刷新…</string>
+    <string name="filter_bt_advance">高级设置</string>
+    <string name="filter_cotent">过滤级别设置:\n  无过滤适合18岁以上青年\n  低过滤级别适合16-18岁的青少年\n  中过滤级别适合13-15岁的青少年\n  高过滤级别适合12岁以下少年 </string>
+    <string name="filter_hight">高过滤级</string>
+    <string name="filter_lower">低过滤级</string>
+    <string name="filter_middle">中过滤级</string>
+    <string name="filter_none">无过滤级</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/app_string.xml -->
+    <eat-comment/>
+    <string name="http_exception_error">网络异常，请求超时</string>
+    <string name="http_status_code_error">网络异常，错误码：%d</string>
+    <string name="io_exception_error">文件流异常</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/string_err.xml -->
+    <eat-comment/>
+    <string name="login_check_account">账户或者手机号不能为空</string>
+    <string name="login_check_password">密码不能为空</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="login_dialog_account_hint">请输入手机或者联通账号</string>
+    <string name="login_dialog_autoLogin">自动登录</string>
+    <string name="login_dialog_login">登录</string>
+    <string name="login_dialog_logo">手机或者联通账号</string>
+    <string name="login_dialog_password_hint">请输入密码</string>
+    <string name="login_dialog_reg">注册</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/app_string.xml -->
+    <eat-comment/>
+    <string name="network_not_connected">网络连接失败，请检查网络设置</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/build/intermediates/exploded-aar/pigfeed/pulltofrefresh_library/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_pull_label">Pull to refresh…</string>
+    <string name="pull_to_refresh_refreshing_label">Loading…</string>
+    <string name="pull_to_refresh_release_label">Release to refresh…</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/app_string.xml -->
+    <eat-comment/>
+    <string name="socket_exception_error">网络异常，读取数据超时</string>
+    <string name="submit_report">提交报告</string>
+    <string name="sure">确定</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="test_login_account"/>
+    <string name="test_login_password"/>
+    <string name="time_1">一</string>
+    <string name="time_2">二</string>
+    <string name="time_3">三</string>
+    <string name="time_4">四</string>
+    <string name="time_5">五</string>
+    <string name="time_6">六</string>
+    <string name="time_7">日</string>
+    <string name="time_advance_pop_1">小学</string>
+    <string name="time_advance_pop_2">初中</string>
+    <string name="time_advance_pop_3">高中</string>
+    <string name="time_advance_pop_4">全时段</string>
+    <string name="time_weekend">休息日</string>
+    <string name="time_work">上学日</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/app_string.xml -->
+    <eat-comment/>
+    <string name="xml_parser_failed">数据解析异常</string>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="ActionBarProgressBar" parent="@style/title_update_progressbar_style"/>
+    <style name="AnimTop2" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_top_in2</item>
+        <item name="android:windowExitAnimation">@anim/push_top_out2</item>
+    </style>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/styles_anim.xml -->
+    <eat-comment/>
+    <style name="Animation"/>
+    <style mce_bogus="1" name="Animation.SlideLeft" parent="@style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/push_right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/push_right_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/push_left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_left_out</item>
+    </style>
+    <style name="Animation.SlideTop" parent="@style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_down</item>
+    </style>
+    <style name="Animation.Translucent" parent="@style/Animation">
+        <item name="android:windowEnterAnimation">@anim/translucent_zoom_out</item>
+        <item name="android:windowExitAnimation">@anim/translucent_zoom_exit</item>
+    </style>
+    <style name="Animation.ZoomLight" parent="@style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/translucent_zoom_in</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@anim/translucent_zoom_exit</item>
+    </style>
+    <!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="MyDialogStyleTop" parent="android:Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/AnimTop2</item>
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 模糊 -->
+    </style>
+    <style name="Theme.CustomCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">  
+	<item name="android:button">@drawable/checkbox</item>
+     </style>
+    <style name="Theme.FullTranslucent" parent="@android:style/Theme.Translucent">
+        <item name="android:windowBackground">@color/full_transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Translucent</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="Theme.HalfTranslucent" parent="@android:style/Theme.Translucent">
+        <item name="android:windowBackground">@color/half_transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Translucent</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="Theme.NoTitleBar" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style mce_bogus="1" name="Theme.SlideLeft" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/Animation.SlideLeft</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="Theme.SlideTop" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/Animation.SlideTop</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="base_large_progressbar_style">
+        <item name="android:maxWidth">38.0dip</item>
+        <item name="android:maxHeight">38.0dip</item>
+        <item name="android:indeterminateDrawable">@anim/base_loading_large_anim</item>
+        <item name="android:minWidth">38.0dip</item>
+        <item name="android:minHeight">38.0dip</item>
+    </style>
+    <style name="base_listview_style" parent="@android:style/Widget.ListView">
+        <item name="android:scrollbarThumbVertical">@drawable/base_list_scrollbar_handle</item>
+        <item name="android:fadingEdgeLength">0.0dip</item>
+        <item name="android:alwaysDrawnWithCache">true</item>
+        <item name="android:listSelector">@drawable/base_list_selector</item>
+        <item name="android:drawSelectorOnTop">false</item>
+        <item name="android:cacheColorHint">@null</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0.0dip</item>
+    </style>
+    <style name="button_size17_white">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="button_size17_white_client">
+        <item name="android:textSize">17.0sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="button_size19_white">
+        <item name="android:textSize">19.0sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="choose_checkbox">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/yahei</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">4dip</item>
+        <item name="android:paddingRight">4dip</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/checkbox_big</item>
+    </style>
+    <style name="edittext_normal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="pop_list_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/listview_item_selector</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/yahei</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="spinner_normal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="style_radio_left">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/check_week_left</item>
+        <item name="android:button">@null</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/week_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="style_radio_rightt">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/check_week_right</item>
+        <item name="android:button">@null</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/week_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="tab_bar_button_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/btn_radio_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@drawable/btn_radio_text_color_selector</item>
+        <item name="android:text"/>
+        <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="table_list_title_textview">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="textView_size10_yahei">
+        <item name="android:textSize">10.669983sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="textView_size10_yahui">
+        <item name="android:textSize">10.0sp</item>
+        <item name="android:textColor">@color/yahui</item>
+    </style>
+    <style name="textView_size12_blue">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/deep_blue</item>
+    </style>
+    <style name="textView_size12_darkGray">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+    <style name="textView_size12_white">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textView_size12_yahei">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="textView_size12_yahui">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/yahui</item>
+    </style>
+    <style name="textView_size14_blue">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/deep_blue</item>
+    </style>
+    <style name="textView_size14_darkGray">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+    <style name="textView_size14_green_bold">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+    <style name="textView_size14_white">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textView_size14_yahei">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="textView_size14_yahui">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">@color/yahui</item>
+    </style>
+    <style name="textView_size16_black">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="textView_size16_blue">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/deep_blue</item>
+    </style>
+    <style name="textView_size16_green">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+    <style name="textView_size16_green_bold">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+    <style name="textView_size16_white">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textView_size16_yahei">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="textView_size16_yahui">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/yahui</item>
+    </style>
+    <style name="textView_size18_white">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textView_size18_yahei">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="text_gray_20px">
+        <item name="android:textSize">13.829987sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="text_gray_26px">
+        <item name="android:textSize">17.829987sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="text_white_16px">
+        <item name="android:textSize">11.159973sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="text_white_20px">
+        <item name="android:textSize">13.829987sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="text_white_22px">
+        <item name="android:textSize">15.159973sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="text_white_24px">
+        <item name="android:textSize">16.5sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="text_white_26px">
+        <item name="android:textSize">17.829987sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="text_yahei_16px">
+        <item name="android:textSize">11.159973sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="text_yahei_20px">
+        <item name="android:textSize">13.829987sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="text_yahei_22px">
+        <item name="android:textSize">15.159973sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="text_yahei_26px">
+        <item name="android:textSize">17.829987sp</item>
+        <item name="android:textColor">@color/yahei</item>
+    </style>
+    <style name="text_yahui_16px">
+        <item name="android:textSize">11.159973sp</item>
+        <item name="android:textColor">@color/yahui</item>
+    </style>
+    <style name="text_yahui_18px">
+        <item name="android:textSize">12.5sp</item>
+        <item name="android:textColor">@color/yahui</item>
+    </style>
+    <style name="text_yahui_20px">
+        <item name="android:textSize">13.829987sp</item>
+        <item name="android:textColor">@color/yahui</item>
+    </style>
+    <style name="textview_info">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@color/alphaGray</item>
+    </style>
+    <style name="textview_normal">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textSize">12dip</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="title_detail_head">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#3c000000</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+    <style name="title_update_progressbar_style">
+        <item name="android:maxWidth">45.0dip</item>
+        <item name="android:maxHeight">45.0dip</item>
+        <item name="android:indeterminateDrawable">@anim/title_update_anim</item>
+        <item name="android:minWidth">45.0dip</item>
+        <item name="android:minHeight">45.0dip</item>
+    </style>
+    <style name="week_left">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/check_week_left</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/week_text_color</item>
+        <item name="android:textSize">14sp</item>
+         <item name="android:textStyle">bold</item>
+    </style>
+    <style name="week_middle">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/check_week_middle</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/week_text_color</item>
+        <item name="android:textSize">14sp</item>
+         <item name="android:textStyle">bold</item>
+    </style>
+    <style name="week_right">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/check_week_right</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/week_text_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="widget_listview">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:listSelector">@drawable/listview_item_selector</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0.0dip</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:scrollingCache">false</item>
+    </style>
+    <style name="widget_listview_divider">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:listSelector">@drawable/listview_item_selector</item>
+        <item name="android:divider">@drawable/list_divider</item>
+        <item name="android:dividerHeight">1.0dip</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:scrollingCache">false</item>
+    </style>
+</resources>
