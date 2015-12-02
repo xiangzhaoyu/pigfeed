@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/rootblock_default_bg"
+    android:layout_height="match_parent">
+    <!-- 顶部导航栏 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/linearLayout_header_height"
+        android:layout_marginTop="5dip" >
+
+        <include
+            android:id="@+id/title_formulaquery"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/linearLayout_header_height"
+            layout="@layout/activity_custom_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_gravity="bottom"
+        android:background="@drawable/about_page_divline" >
+    </LinearLayout>
+
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/textview_normal"
+                android:text="名称：" >
+            </TextView>
+            <TextView
+                android:id="@+id/tv_formula_name"
+                style="@style/textview_info"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/textview_normal"
+                android:layout_width="wrap_content"
+                android:text="内容：" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_formula_content"
+                style="@style/textview_info"
+                android:textAppearance="?android:attr/textAppearanceMedium" >
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_pb_ar"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/pb_sum_ar"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                style="?android:attr/progressBarStyleHorizontal"/>
+<TextView
+    android:id="@+id/tv_sum_ar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_list_ar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:background="@color/linearlayout_background2"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/table_list_title_textview"
+                        android:text="名称" >
+                    </TextView>
+
+                    <TextView
+                        style="@style/table_list_title_textview"
+                        android:text="含量" >
+                    </TextView>
+
+                    <TextView
+                        style="@style/table_list_title_textview"
+                        android:text="单位" >
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/lv_formula_artifi"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:divider="#00ffffff" >
+            </ListView>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+</LinearLayout><!-- From: file:/C:/Users/xiangzy_1/StudioProjects/pigfeed/app/src/main/res/layout/fragment_formula_artificial_main.xml -->
