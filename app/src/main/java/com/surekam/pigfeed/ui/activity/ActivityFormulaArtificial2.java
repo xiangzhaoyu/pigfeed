@@ -6,10 +6,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ import com.surekam.pigfeed.bean.FeedVo;
 import com.surekam.pigfeed.bean.FormulaArtificialVo;
 import com.surekam.pigfeed.db.PfDb;
 import com.surekam.pigfeed.tools.JsonUtil;
+import com.surekam.pigfeed.ui.adapter.ArtificialAdapter;
 import com.surekam.pigfeed.ui.adapter.FeedAdapter;
 
 import java.io.File;
@@ -62,6 +65,8 @@ public class ActivityFormulaArtificial2 extends Activity {
 
     private Button mSelect,mSum;
     private ListView lvFormulaAr;
+    private List<ArtificialNur> arFeeds;
+    private ArtificialAdapter arFeedAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +146,8 @@ public class ActivityFormulaArtificial2 extends Activity {
                         //Toast toast = Toast.makeText(getApplicationContext(), "你选择了"+str, Toast.LENGTH_LONG);
                         //toast.show();
                         feedids=str;
+                        //执行计算
+                        excute1();
                     }
                 });
                 //  设置取消按钮
@@ -161,7 +168,7 @@ public class ActivityFormulaArtificial2 extends Activity {
         mSum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                excute();
+
             }
         });
 
@@ -245,6 +252,139 @@ public class ActivityFormulaArtificial2 extends Activity {
             }
 
         }catch (Exception e){}
+    }
+
+    private void excute1(){
+        try{
+            //获取配方所含营养素组成
+            List<ArtificialNur> formulaNur=mPfDb.getFormulaNurs(ff.id+"");
+            if(formulaNur!=null&&formulaNur.size()>0){
+                if(feedids!=null&&feedids.length()>0){
+                    //遍历配方含的营养素组成，这里只取第一个
+                    for(int f=0;f<1;f++){
+                        ArtificialNur fn=formulaNur.get(f);
+                        try{
+                            //获取在指定饲料中的，营养素大于number跟小于number的，饲料id的列表
+                            List<Long> maxFeedIds=mPfDb.getMaxFeedIds(feedids.substring(0,feedids.length()-1),fn.Cid,fn.UnitNumber);
+                            List<Long> minFeedIds=mPfDb.getMinFeedIds(feedids.substring(0,feedids.length()-1),fn.Cid,fn.UnitNumber);
+                            //将大于跟小于的饲料列表数目对齐
+                            if(maxFeedIds!=null&&maxFeedIds.size()>0){
+                                if(minFeedIds!=null&&minFeedIds.size()>0){
+                                    if(maxFeedIds.size()>minFeedIds.size()){
+                                        Long temp=minFeedIds.get(0);
+                                        for(int i=0;i<(maxFeedIds.size()-minFeedIds.size());i++){
+                                            minFeedIds.add(temp);
+                                        }
+                                    }else{
+                                        Long temp=maxFeedIds.get(0);
+                                        for(int i=0;i<(minFeedIds.size()-maxFeedIds.size());i++){
+                                            maxFeedIds.add(temp);
+                                        }
+                                    }
+                                    //拿一个总的feedid列表
+                                    List<Long> feeds=new ArrayList<Long>();
+                                    for(Long id:maxFeedIds){
+                                        feeds.add(id);
+                                    }
+                                    for (Long id:minFeedIds){
+                                        feeds.add(id);
+                                    }
+                                    //计算比例中间过程，获取差值
+                                    //List<ArtificialNur> maxFeedNur=new ArrayList<ArtificialNur>();
+                                    //List<ArtificialNur> minFeedNur=new ArrayList<ArtificialNur>();
+                                    List<ArtificialNur> feedNur=new ArrayList<ArtificialNur>();
+                                    double totalNumber=0;
+                                    for(Long id:feeds){
+                                        try{
+                                        ArtificialNur temp=mPfDb.getAri(id,fn.Cid);
+                                        if(temp!=null){
+                                            temp.UnitNumber=Math.abs(fn.UnitNumber-temp.UnitNumber);
+                                            totalNumber+=temp.UnitNumber;
+                                            feedNur.add(temp);
+                                        }}catch (Exception e){}
+                                    }
+                                    //计算比例
+                                    List<ArtificialNur> perFeedNur=new ArrayList<ArtificialNur>();
+                                    for(int i=0;i<feedNur.size();i++){
+                                        try{
+                                            ArtificialNur temp=feedNur.get(i);
+                                            ArtificialNur temp1=feedNur.get(feedNur.size()-i);
+                                            temp.UnitNumber=temp1.UnitNumber/totalNumber;
+                                            perFeedNur.add(temp);
+                                        }catch (Exception e){}
+                                    }
+                                    //绑定数据展示控件
+                                    arFeedAdapter = new ArtificialAdapter(perFeedNur,
+                                            getApplicationContext(),
+                                            R.layout.item_list_artificial);
+                                    lvFormulaAr.setAdapter(arFeedAdapter);
+                                    fixListViewHeight(lvFormulaAr);
+                                    // 数据加载完成改变一下scrollview的显示位置
+                                    lvFormulaAr.scrollTo(0, 0);
+                                }else{
+                                    List<ArtificialNur> xx=mPfDb.getMinFeedNurs(fn.Cid,fn.UnitNumber);
+                                    if(xx!=null&&xx.size()>0){
+                                        String str="";
+                                        for(ArtificialNur x:xx){
+                                            str=str+x.Cname+",";
+                                        }
+                                        UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"当前选择的饲料："+fn.Cname+"含量过高，请将"+str+"一种或者几种选入！");
+                                    }else{
+                                        UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"由于配方的"+fn.Cname+"含量过低，数据库无法生成合适的饲料配比！");
+                                    }
+                                }
+                            }else{
+                                List<ArtificialNur> xx=mPfDb.getMaxFeedNurs(fn.Cid,fn.UnitNumber);
+                                if(xx!=null&&xx.size()>0){
+                                    String str="";
+                                    for(ArtificialNur x:xx){
+                                        str=str+x.Cname+",";
+                                    }
+                                    UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"当前选择的饲料："+fn.Cname+"含量过低，请将"+str+"一种或者几种选入！");
+                                }else{
+                                    UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"由于配方的"+fn.Cname+"含量过高，数据库无法生成合适的饲料配比！");
+                                }
+                            }
+                        }catch (Exception e){}
+                    }
+                }else{
+                    UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"请选择两种以上的饲料！");
+                }
+            }else{
+                UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"没有获取到该配方的营养素组成情况，请重新选择配方！");
+            }
+        }catch (Exception e){
+            UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"智能计算出现问题，请联系管理员："+e.getMessage());
+        }
+    }
+
+    public void fixListViewHeight(ListView listView) {
+        // 如果没有设置数据适配器，则ListView没有子项，返回。
+        ListAdapter listAdapter = listView.getAdapter();
+        int totalHeight = 0;
+        if (listAdapter == null) {
+            return;
+        }
+        for (int index = 0, len = listAdapter.getCount(); index < len; index++) {
+            View listViewItem = listAdapter.getView(index , null, listView);
+            // 计算子项View 的宽高
+            //listViewItem.measure(0, 0);
+            listViewItem.measure(View.MeasureSpec.makeMeasureSpec(getResources().getDisplayMetrics().widthPixels, View.MeasureSpec.EXACTLY), 0);
+            // 计算所有子项的高度和
+            int height=0;
+            if(listViewItem.getHeight()>listViewItem.getMeasuredHeight())
+                height=listViewItem.getHeight();
+            else
+                height=listViewItem.getMeasuredHeight();
+
+            totalHeight += height;
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        // listView.getDividerHeight()获取子项间分隔符的高度
+        // params.height设置ListView完全显示需要的高度
+        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
     public synchronized PfDb getmPfDb() {

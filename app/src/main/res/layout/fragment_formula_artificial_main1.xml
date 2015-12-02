@@ -39,6 +39,7 @@
             android:text="选择饲料" >
         </Button>
         <Button
+            android:visibility="gone"
             android:id="@+id/bt_ar_sum"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
