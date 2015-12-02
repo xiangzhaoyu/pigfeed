@@ -467,11 +467,12 @@
         <item name="android:textColor">@color/yahui</item>
     </style>
     <style name="textview_info">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#000000</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@color/alphaGray</item>
     </style>
     <style name="textview_normal">
         <item name="android:layout_width">wrap_content</item>
