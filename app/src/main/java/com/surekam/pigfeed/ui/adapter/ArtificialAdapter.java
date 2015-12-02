@@ -80,7 +80,7 @@ public class ArtificialAdapter extends BaseAdapter {
 
             ArtificialNur t = list.get(position);
             cache.name.setText(t.Mname);
-            cache.per.setText(new java.text.DecimalFormat("#.000").format(t.UnitNumber*100)+"%");
+            cache.per.setText(new java.text.DecimalFormat("0.000").format(t.UnitNumber*100)+"%");
         } catch (Exception e) {
         }
         return convertView;

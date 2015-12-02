@@ -65,7 +65,8 @@ public class ActivityFormulaArtificial2 extends Activity {
 
     private Button mSelect,mSum;
     private ListView lvFormulaAr;
-    private List<ArtificialNur> arFeeds;
+    List<ArtificialNur> perFeedNur;
+    List<ArtificialNur> arFeedNur;
     private ArtificialAdapter arFeedAdapter;
 
     @Override
@@ -117,6 +118,9 @@ public class ActivityFormulaArtificial2 extends Activity {
                     mfsb[i]=false;
                 }
                 MultiChoiceID.clear();
+                perFeedNur=new ArrayList<ArtificialNur>();
+                arFeedNur=new ArrayList<ArtificialNur>();
+
                 //builder.setIcon(R.drawable.ic_launcher);
                 builder.setTitle("多项选择");
                 //  设置多选项
@@ -207,6 +211,18 @@ public class ActivityFormulaArtificial2 extends Activity {
                             //获取在指定饲料中的，营养素大于number跟小于number的，饲料id的列表
                             List<Long> maxFeedIds=mPfDb.getMaxFeedIds(feedids.substring(0,feedids.length()-1),fn.Cid,fn.UnitNumber);
                             List<Long> minFeedIds=mPfDb.getMinFeedIds(feedids.substring(0,feedids.length()-1),fn.Cid,fn.UnitNumber);
+                            //存distinct的feedid
+                            List<Long> distinctfeedids=new ArrayList<Long>();
+                            for(Long id:maxFeedIds){
+                                if(!distinctfeedids.contains(id)){
+                                    distinctfeedids.add(id);
+                                }
+                            }
+                            for(Long id:minFeedIds){
+                                if(!distinctfeedids.contains(id)){
+                                    distinctfeedids.add(id);
+                                }
+                            }
                             //将大于跟小于的饲料列表数目对齐
                             if(maxFeedIds!=null&&maxFeedIds.size()>0){
                                 if(minFeedIds!=null&&minFeedIds.size()>0){
@@ -244,7 +260,7 @@ public class ActivityFormulaArtificial2 extends Activity {
                                         }}catch (Exception e){}
                                     }
                                     //计算比例
-                                    List<ArtificialNur> perFeedNur=new ArrayList<ArtificialNur>();
+                                    perFeedNur=new ArrayList<ArtificialNur>();
                                     for(int i=0;i<feedNur.size();i++){
                                         try{
                                             ArtificialNur temp=(ArtificialNur)feedNur.get(i).clone();
@@ -253,8 +269,33 @@ public class ActivityFormulaArtificial2 extends Activity {
                                             perFeedNur.add(temp);
                                         }catch (Exception e){}
                                     }
+                                    //合并重复饲料
+                                    for(Long id:distinctfeedids){
+                                        try{
+                                            ArtificialNur tempav=new ArtificialNur();
+                                            double temp=0;
+                                            for(ArtificialNur av:perFeedNur){
+                                                try{
+                                                    if(id==av.Mid){
+                                                        tempav=(ArtificialNur)av.clone();
+                                                        temp+=av.UnitNumber;
+                                                    }
+                                                }catch (Exception e){}
+                                            }
+                                            tempav.UnitNumber=temp;
+                                            if(tempav!=null&&tempav.Mid>0){
+                                                arFeedNur.add(tempav);
+                                            }
+                                        }catch (Exception e){}
+                                    }
+                                    if(arFeedNur!=null&&arFeedNur.size()==0){
+                                        ArtificialNur temp=new ArtificialNur();
+                                        temp.Mname="无";
+                                        temp.UnitNumber=0;
+                                        arFeedNur.add(temp);
+                                    }
                                     //绑定数据展示控件
-                                    arFeedAdapter = new ArtificialAdapter(perFeedNur,
+                                    arFeedAdapter = new ArtificialAdapter(arFeedNur,
                                             getApplicationContext(),
                                             R.layout.item_list_artificial);
                                     lvFormulaAr.setAdapter(arFeedAdapter);
