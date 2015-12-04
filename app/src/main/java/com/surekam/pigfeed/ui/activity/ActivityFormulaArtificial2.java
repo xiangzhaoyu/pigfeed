@@ -26,6 +26,7 @@ import com.surekam.pigfeed.api.ServiceHelper;
 import com.surekam.pigfeed.app.UIHelper;
 import com.surekam.pigfeed.bean.AreaVo;
 import com.surekam.pigfeed.bean.ArtificialNur;
+import com.surekam.pigfeed.bean.CommonResultVo;
 import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
 import com.surekam.pigfeed.bean.FeedType;
@@ -369,7 +370,7 @@ public class ActivityFormulaArtificial2 extends Activity {
                                     for(int i=0;i<feedNur.size();i++){
                                         try{
                                             ArtificialNur temp=(ArtificialNur)feedNur.get(i).clone();
-                                            ArtificialNur temp1=(ArtificialNur)feedNur.get(feedNur.size()-i-1);
+                                            ArtificialNur temp1= feedNur.get(feedNur.size()-i-1);
                                             temp.UnitNumber=temp1.UnitNumber/totalNumber;
                                             perFeedNur.add(temp);
                                         }catch (Exception e){}
@@ -518,7 +519,7 @@ public class ActivityFormulaArtificial2 extends Activity {
                         new TypeToken<EntityDataPageVo>() {
                         }.getType());
                 if ((edv != null)
-                        && (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+                        && (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
 
                     //List<FeedVo> temps2 = (ArrayList<FeedVo>) edv.data;
                     List<FeedVo> temps1=new ArrayList<FeedVo>();
@@ -584,7 +585,7 @@ public class ActivityFormulaArtificial2 extends Activity {
                         new TypeToken<EntityDataPageVo>() {
                         }.getType());
                 if ((edv != null)
-                        && (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+                        && (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
                     List<NutritionVo> temps1 = new ArrayList<NutritionVo>();//(ArrayList<NutritionVo>) edv.data;
                     // List<String> temps=new ArrayList<String>();
                     try{
