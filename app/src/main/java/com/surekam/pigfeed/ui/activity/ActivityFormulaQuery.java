@@ -18,6 +18,7 @@ import com.surekam.pigfeed.api.ServiceHelper;
 import com.surekam.pigfeed.app.UIHelper;
 import com.surekam.pigfeed.bean.AreaVo;
 import com.surekam.pigfeed.bean.City;
+import com.surekam.pigfeed.bean.CommonResultVo;
 import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedFormulaType;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
@@ -383,7 +384,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 						new TypeToken<EntityDataPageVo>() {
 						}.getType());
 				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+						&& (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
 
 					List<AreaVo> temps1 = new ArrayList<AreaVo>();//(ArrayList<AreaVo>) edv.data;
 					try{
@@ -402,7 +403,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 						areas.addAll(temps1);
 					}
 					adArs = new ArrayAdapter<AreaVo>(ActivityFormulaQuery.this,
-							android.R.layout.simple_spinner_item, areas);
+							android.R.layout.simple_spinner_dropdown_item, areas);
 					area.setAdapter(adArs);
 				}else{
 					UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取区域失败" + edv.getErrorMsg());
@@ -447,7 +448,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 						new TypeToken<EntityDataPageVo>() {
 						}.getType());
 				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+						&& (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
 					List<FeedFormulaType> temps1 = new ArrayList<FeedFormulaType>();//(ArrayList<FeedFormulaType>) edv.data;
 					try{
 					temps1 = JsonUtil.fromJsonArray(
@@ -467,7 +468,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 					}
 					adFys = new ArrayAdapter<FeedFormulaType>(
 							ActivityFormulaQuery.this,
-							android.R.layout.simple_spinner_item, formulaTypes);
+							android.R.layout.simple_spinner_dropdown_item, formulaTypes);
 					formuType.setAdapter(adFys);
 				}else{
 					UIHelper.ToastMessage(ActivityFormulaQuery.this, "获取配方类型失败" + edv.getErrorMsg());
@@ -551,7 +552,7 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 						new TypeToken<EntityDataPageVo>() {
 						}.getType());
 				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+						&& (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
 
 					List<FeedFormulaVo> temps1=new ArrayList<FeedFormulaVo>();
 					try{

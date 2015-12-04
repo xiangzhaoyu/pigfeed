@@ -123,7 +123,7 @@
 
                     <TextView
                         style="@style/table_list_title_textview"
-                        android:text="价格" >
+                        android:text="价格(元/千克)" >
                     </TextView>
 
                     <TextView

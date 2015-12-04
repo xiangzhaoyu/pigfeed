@@ -32,6 +32,14 @@ public class UIHelper {
 		CustomToast.showCustomToast(cont, msg, Toast.LENGTH_SHORT);
 	}
 
+	/*
+	* 弹出时间长点的toast
+	* */
+	public static void ToastLongMessage(Context cont, String msg) {
+		// Toast.makeText(cont, msg, Toast.LENGTH_SHORT).show();
+		CustomToast.showCustomToast(cont, msg, Toast.LENGTH_LONG);
+	}
+
 	/**
 	 * 弹出Toast消息
 	 * 

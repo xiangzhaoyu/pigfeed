@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +31,12 @@ import com.surekam.pigfeed.bean.FeedFormulaVo;
 import com.surekam.pigfeed.bean.FeedType;
 import com.surekam.pigfeed.bean.FeedVo;
 import com.surekam.pigfeed.bean.FormulaArtificialVo;
+import com.surekam.pigfeed.bean.NutritionVo;
 import com.surekam.pigfeed.db.PfDb;
 import com.surekam.pigfeed.tools.JsonUtil;
 import com.surekam.pigfeed.ui.adapter.ArtificialAdapter;
 import com.surekam.pigfeed.ui.adapter.FeedAdapter;
+import com.surekam.pigfeed.ui.adapter.NutritionListAdapter;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,9 +69,17 @@ public class ActivityFormulaArtificial2 extends Activity {
 
     private Button mSelect,mSum;
     private ListView lvFormulaAr;
-    List<ArtificialNur> perFeedNur;
-    List<ArtificialNur> arFeedNur;
+    List<ArtificialNur> perFeedNur=new ArrayList<ArtificialNur>();
+    List<ArtificialNur> arFeedNur=new ArrayList<ArtificialNur>();
     private ArtificialAdapter arFeedAdapter;
+
+    //营养素列表
+    private ListView nuListView;
+    private List<NutritionVo> listNus=new ArrayList<NutritionVo>();
+    private NutritionListAdapter nuAdapter;
+
+    private LinearLayout mfeeds,mnurs,mIntro;
+    private ScrollView sv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +120,10 @@ public class ActivityFormulaArtificial2 extends Activity {
         tvOpe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mfeeds.setVisibility(View.VISIBLE);
+                mnurs.setVisibility(View.VISIBLE);
+                mIntro.setVisibility(View.GONE);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFormulaArtificial2.this);
 
                 mfsa=new String[mfs.size()];
@@ -256,6 +271,13 @@ public class ActivityFormulaArtificial2 extends Activity {
 
         lvFormulaAr =(ListView)findViewById(R.id.lv_formula_artifi);
 
+        mfeeds=(LinearLayout)findViewById(R.id.ll_arti_feeds);
+        mnurs=(LinearLayout)findViewById(R.id.ll_arti_nutris);
+        mIntro=(LinearLayout)findViewById(R.id.ll_arti_intro);
+
+        nuListView=(ListView)findViewById(R.id.listview_feed_nutrition);
+
+        sv=(ScrollView)findViewById(R.id.scroll_arti);
     }
 
     private void initialData(){
@@ -268,6 +290,17 @@ public class ActivityFormulaArtificial2 extends Activity {
             rps.put("pageSize", 10000);
             http.get(new ServiceHelper().GETFORMULATYPE, rps);
         }catch (Exception e){}
+
+        try {
+            HttpExecuteJson http = new HttpExecuteJson(this,
+                    mFormulaNutritionListener);
+            Map<String, Object> rps = new HashMap<String, Object>();
+            rps.put("method", "getFeedFormulaNutrition");
+            rps.put("formulaId", ff.id);
+            http.get(new ServiceHelper().GETFORMULATYPE, rps);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void excute(){
@@ -373,7 +406,7 @@ public class ActivityFormulaArtificial2 extends Activity {
                                     lvFormulaAr.setAdapter(arFeedAdapter);
                                     fixListViewHeight(lvFormulaAr);
                                     // 数据加载完成改变一下scrollview的显示位置
-                                    lvFormulaAr.scrollTo(0, 0);
+                                    sv.scrollTo(0, 0);
                                 }else{
                                     List<ArtificialNur> xx=mPfDb.getMinFeedNurs(fn.Cid,fn.UnitNumber);
                                     if(xx!=null&&xx.size()>0){
@@ -381,9 +414,9 @@ public class ActivityFormulaArtificial2 extends Activity {
                                         for(ArtificialNur x:xx){
                                             str=str+x.Mname+",";
                                         }
-                                        UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"当前选择的饲料："+fn.Cname+"含量过高，请将"+str+"一种或者几种选入！");
+                                        UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "当前选择的饲料：" + fn.Cname + "含量过高，请将" + str + "一种或者几种选入！");
                                     }else{
-                                        UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"由于配方的"+fn.Cname+"含量过低，数据库无法生成合适的饲料配比！");
+                                        UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "由于配方的" + fn.Cname + "含量过低，数据库无法生成合适的饲料配比！");
                                     }
                                 }
                             }else{
@@ -393,21 +426,21 @@ public class ActivityFormulaArtificial2 extends Activity {
                                     for(ArtificialNur x:xx){
                                         str=str+x.Mname+",";
                                     }
-                                    UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"当前选择的饲料："+fn.Cname+"含量过低，请将"+str+"一种或者几种选入！");
+                                    UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "当前选择的饲料：" + fn.Cname + "含量过低，请将" + str + "一种或者几种选入！");
                                 }else{
-                                    UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"由于配方的"+fn.Cname+"含量过高，数据库无法生成合适的饲料配比！");
+                                    UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "由于配方的" + fn.Cname + "含量过高，数据库无法生成合适的饲料配比！");
                                 }
                             }
                         }catch (Exception e){}
                     }
                 }else{
-                    UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"请选择两种以上的饲料！");
+                    UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "请选择两种以上的饲料！");
                 }
             }else{
-                UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"没有获取到该配方的营养素组成情况，请重新选择配方！");
+                UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "没有获取到该配方的营养素组成情况，请重新选择配方！");
             }
         }catch (Exception e){
-            UIHelper.ToastMessage(ActivityFormulaArtificial2.this,"智能计算出现问题，请联系管理员："+e.getMessage());
+            UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "智能计算出现问题，请联系管理员：" + e.getMessage());
         }
     }
 
@@ -508,12 +541,12 @@ public class ActivityFormulaArtificial2 extends Activity {
                     }
 
                 }else{
-                    UIHelper.ToastMessage(ActivityFormulaArtificial2.this, "获取饲料失败" + edv.getErrorMsg());
+                    UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "获取饲料失败" + edv.getErrorMsg());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 // mStrings.addAll(temps);
-                UIHelper.ToastMessage(ActivityFormulaArtificial2.this, "获取饲料失败，请联系管理员：" + e.getMessage());
+                UIHelper.ToastLongMessage(ActivityFormulaArtificial2.this, "获取饲料失败，请联系管理员：" + e.getMessage());
             }
         }
 
@@ -527,6 +560,62 @@ public class ActivityFormulaArtificial2 extends Activity {
         public void onCancel() {
             // TODO Auto-generated method stub
             UIHelper.ToastMessage(ActivityFormulaArtificial2.this, "获取饲料退出" );
+        }
+    };
+
+    private HttpExecuteJson.httpReturnJson mFormulaNutritionListener = new HttpExecuteJson.httpReturnJson() {
+        @Override
+        public void onFailure(int error, String msg) {
+            UIHelper.ToastMessage(ActivityFormulaArtificial2.this, "获取配方营养素失败" + msg);
+        }
+
+        @Override
+        public void onCancel() {
+            // TODO Auto-generated method stub
+            UIHelper.ToastMessage(ActivityFormulaArtificial2.this, "获取配方营养素退出");
+        }
+
+        // 获取到饲料配方类型成功
+        public void onSuccess(String result) {
+            // TODO Auto-generated method stub
+            EntityDataPageVo edv = null;
+            try {
+                edv = new Gson().fromJson(result,
+                        new TypeToken<EntityDataPageVo>() {
+                        }.getType());
+                if ((edv != null)
+                        && (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+                    List<NutritionVo> temps1 = new ArrayList<NutritionVo>();//(ArrayList<NutritionVo>) edv.data;
+                    // List<String> temps=new ArrayList<String>();
+                    try{
+                        temps1 = JsonUtil.fromJsonArray(
+                                JsonUtil.toJson(edv.data),
+                                NutritionVo.class);}catch (Exception e){}
+                    if(temps1!=null&&temps1.size()>0){
+                        listNus.addAll(temps1);
+                    }else {
+                        NutritionVo nv=new NutritionVo();
+                        nv.id=null;
+                        nv.name="无";
+                        nv.systemUnitNum="无";
+                        nv.systemUnitName="无";
+                        listNus.add(nv);
+                    }
+
+                    nuAdapter = new NutritionListAdapter(listNus, getApplicationContext(),
+                            R.layout.fragment_fromula_nutrition_list_item);
+                    nuListView.setAdapter(nuAdapter);
+                    fixListViewHeight(nuListView);
+                    //数据加载完成改变一下scrollview的显示位置
+                    sv.scrollTo(0, 0);
+                }else{
+                    UIHelper.ToastMessage(ActivityFormulaArtificial2.this, "获取配方营养素失败" + edv.getErrorMsg());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                UIHelper.ToastMessage(ActivityFormulaArtificial2.this, "获取配方营养素失败,请联系管理员：" + e.getMessage());
+            }
+            // UIHelper.ToastMessage(_context,"总条数=" + result + "");
         }
     };
 

@@ -17,6 +17,7 @@ import com.surekam.pigfeed.api.HttpExecuteJson.httpReturnJson;
 import com.surekam.pigfeed.app.UIHelper;
 import com.surekam.pigfeed.bean.AreaVo;
 import com.surekam.pigfeed.bean.City;
+import com.surekam.pigfeed.bean.CommonResultVo;
 import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedFormulaRecommandVo;
 import com.surekam.pigfeed.bean.FeedFormulaType;
@@ -395,7 +396,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						new TypeToken<EntityDataPageVo>() {
 						}.getType());
 				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+						&& (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
 					List<FeedType> temps1 = new ArrayList<FeedType>();//(ArrayList<FeedType>) edv.data;
 					try{
 					temps1 = JsonUtil.fromJsonArray(
@@ -414,7 +415,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						feedTypes.addAll(temps1);
 					}
 					adFs = new ArrayAdapter<FeedType>(ActivityFeedQuery.this,
-							android.R.layout.simple_spinner_item, feedTypes);
+							android.R.layout.simple_spinner_dropdown_item, feedTypes);
 					feedType.setAdapter(adFs);
 				}else{
 					UIHelper.ToastMessage(ActivityFeedQuery.this, "获取饲料类型失败"+edv.getErrorMsg());
@@ -438,7 +439,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						new TypeToken<EntityDataPageVo>() {
 						}.getType());
 				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+						&& (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
 					List<AreaVo> temps1 = new ArrayList<AreaVo>();//(ArrayList<AreaVo>) edv.data;
 					try{
 					temps1 = JsonUtil.fromJsonArray(
@@ -457,7 +458,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						areas.addAll(temps1);
 					}
 					adArs = new ArrayAdapter<AreaVo>(ActivityFeedQuery.this,
-							android.R.layout.simple_spinner_item, areas);
+							android.R.layout.simple_spinner_dropdown_item, areas);
 					area.setAdapter(adArs);
 				}else{
 					UIHelper.ToastMessage(ActivityFeedQuery.this, "获取区域失败" + edv.getErrorMsg());
@@ -492,7 +493,7 @@ public class ActivityFeedQuery extends Activity implements UncaughtExceptionHand
 						new TypeToken<EntityDataPageVo>() {
 						}.getType());
 				if ((edv != null)
-						&& (edv.getErrorCode().equals(edv.ERROR_CODE_SUCCESS))) {
+						&& (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
 
 					//List<FeedVo> temps2 = (ArrayList<FeedVo>) edv.data;
 					List<FeedVo> temps1=new ArrayList<FeedVo>();

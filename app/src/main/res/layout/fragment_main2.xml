@@ -16,10 +16,10 @@
     </GridView>
 
     <LinearLayout
-        android:visibility="gone"
+
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:background="@color/linearlayout_background2"
+        android:layout_height="100dp"
+
         
         android:layout_alignParentBottom="true"
         android:orientation="vertical" >
@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:text="生猪育肥智能检索系统"
             android:layout_gravity="center"
-            android:textColor="#FFFFFF" >
+            android:textSize="20dp"
+            >
         </TextView>
     </LinearLayout>
 

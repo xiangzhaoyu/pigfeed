@@ -50,6 +50,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scroll_arti"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -61,13 +62,125 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/lv_formula_artifi"
+            <LinearLayout
+                android:id="@+id/ll_arti_feeds"
+                android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:divider="#00ffffff" >
-            </ListView>
+                android:orientation="vertical">
+                <TextView
+                    style="@style/textview_normal"
+                    android:layout_width="wrap_content"
+                    android:text="饲料组成" >
+                </TextView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="5dp"
+                    android:background="@color/linearlayout_background2"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            style="@style/table_list_title_textview"
+                            android:text="名称" >
+                        </TextView>
+
+                        <TextView
+                            style="@style/table_list_title_textview"
+                            android:text="含量" >
+                        </TextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/lv_formula_artifi"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#00ffffff" >
+                </ListView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_arti_nutris"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+                <TextView
+                    style="@style/textview_normal"
+                    android:layout_width="wrap_content"
+
+                    android:text="营养素列表" >
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="5dp"
+                    android:background="@color/linearlayout_background2"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            style="@style/table_list_title_textview"
+                            android:text="名称" >
+                        </TextView>
+
+                        <TextView
+                            style="@style/table_list_title_textview"
+                            android:text="含量" >
+                        </TextView>
+
+                        <TextView
+                            style="@style/table_list_title_textview"
+                            android:text="单位" >
+                        </TextView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listview_feed_nutrition"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="#00ffffff" >
+                </ListView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_arti_intro"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请点击右上角'计算'进行饲料选择"
+                    android:textSize="20dp"
+                    />
+            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

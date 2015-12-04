@@ -201,7 +201,7 @@
                     </TextView>
                     <TextView
                         style="@style/table_list_title_textview"
-                        android:text="单位价格" >
+                        android:text="价格(元/千克)" >
                     </TextView>
                 </LinearLayout>
             </LinearLayout>
