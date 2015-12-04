@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.surekam.pigfeed.R;
 import com.surekam.pigfeed.bean.NutritionVo;
+import com.surekam.pigfeed.tools.StringUtils;
 
 public class NutritionListAdapter extends BaseAdapter {
 
@@ -28,7 +29,7 @@ public class NutritionListAdapter extends BaseAdapter {
 		this.layout = layout;
 
 		inflater = (LayoutInflater) context
-				.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	/*
@@ -80,6 +81,13 @@ public class NutritionListAdapter extends BaseAdapter {
 			cache.nuName.setText(t.name);
 			cache.nuNum.setText(t.systemUnitNum);
 			cache.nuUnit.setText(t.systemUnitName);
+			if(t!=null&&t.systemUnitName.equals("百分比")){
+				double x=0;
+				try{
+					x=Double.parseDouble(t.systemUnitNum)*100;
+				}catch (Exception e){}
+				cache.nuNum.setText(new java.text.DecimalFormat("0.000").format(x));
+			}
 		} catch (Exception e) {
 		}
 		return convertView;
