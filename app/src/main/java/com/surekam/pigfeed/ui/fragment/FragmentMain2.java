@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.surekam.pigfeed.R;
 import com.surekam.pigfeed.bean.ImageInfo;
 import com.surekam.pigfeed.common.BaseFragment;
+import com.surekam.pigfeed.ui.activity.ActivityAgencyQuery;
 import com.surekam.pigfeed.ui.activity.ActivityFeedQuery;
 import com.surekam.pigfeed.ui.activity.ActivityFormulaQuery;
 
@@ -106,6 +107,10 @@ public class FragmentMain2 extends BaseFragment implements OnClickListener {
 					_context.startActivity(aquery);
 				}break;
 				case 3:{
+					Intent aquery=new Intent(_context,ActivityAgencyQuery.class);
+					_context.startActivity(aquery);
+				}break;
+				case 4:{
 					Intent aquery=new Intent(_context,ActivityFormulaQuery.class);
 					aquery.putExtra("showWho", 1);
 					_context.startActivity(aquery);
@@ -126,6 +131,7 @@ public class FragmentMain2 extends BaseFragment implements OnClickListener {
         data.add(new ImageInfo("配方检索", R.drawable.icon1, R.drawable.icon_bg01));
         data.add(new ImageInfo("饲料检索", R.drawable.icon2, R.drawable.icon_bg01));
         data.add(new ImageInfo("价格趋势", R.drawable.icon3, R.drawable.icon_bg01));
+		data.add(new ImageInfo("联系经销商", R.drawable.icon3, R.drawable.icon_bg01));
         data.add(new ImageInfo("智能配方计算", R.drawable.icon4, R.drawable.icon_bg01));
         
     }
