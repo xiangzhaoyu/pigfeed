@@ -112,7 +112,11 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 				.findViewById(R.id.title_text_nav);
 		if(showWho==1){
 			txtTitle.setText("智能推荐");
-		}else{
+		}
+		else if(showWho==2){
+			txtTitle.setText("精准推荐");
+		}
+		else{
 			txtTitle.setText("配方查询");
 		}
 
@@ -135,9 +139,9 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 			@Override
 			public void onClick(View view) {
 				try {
-					pageno=1;
+					pageno = 1;
 					mFfs.clear();
-					isRefreshing=false;
+					isRefreshing = false;
 					loadFormulas();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -280,7 +284,13 @@ public class ActivityFormulaQuery extends Activity implements UncaughtExceptionH
 							Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaArtificial2.class);
 							intent.putExtra("formula", ff);
 							startActivity(intent);
-						}else{
+						}
+						else if(showWho==2){
+							Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaArtificial3.class);
+							intent.putExtra("formula", ff);
+							startActivity(intent);
+						}
+						else {
 							Intent intent=new Intent(ActivityFormulaQuery.this,ActivityFormulaDetail.class);
 							intent.putExtra("formula", ff);
 							startActivity(intent);
