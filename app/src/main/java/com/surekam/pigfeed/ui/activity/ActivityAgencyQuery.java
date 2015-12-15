@@ -24,6 +24,7 @@ import com.surekam.pigfeed.R;
 import com.surekam.pigfeed.api.HttpExecuteJson;
 import com.surekam.pigfeed.api.ServiceHelper;
 import com.surekam.pigfeed.app.UIHelper;
+import com.surekam.pigfeed.bean.AgencyVo;
 import com.surekam.pigfeed.bean.AreaVo;
 import com.surekam.pigfeed.bean.City;
 import com.surekam.pigfeed.bean.CommonResultVo;
@@ -31,6 +32,7 @@ import com.surekam.pigfeed.bean.EntityDataPageVo;
 import com.surekam.pigfeed.bean.FeedFormulaType;
 import com.surekam.pigfeed.bean.FeedFormulaVo;
 import com.surekam.pigfeed.tools.JsonUtil;
+import com.surekam.pigfeed.ui.adapter.AgencySimpleAdapter;
 import com.surekam.pigfeed.ui.adapter.FormulaAdapter;
 
 import java.util.ArrayList;
@@ -60,8 +62,8 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
     private boolean isRefreshing = false;
     // private List<String> mStrings = new ArrayList<String>();
     // 配方已经显示的配方
-    private List<FeedFormulaVo> mFfs = new ArrayList<FeedFormulaVo>();
-    private FormulaAdapter mAdapter;
+    private List<AgencyVo> mFfs = new ArrayList<AgencyVo>();
+    private AgencySimpleAdapter mAdapter;
 
     // 分页的标志
     private int pageno = 1;
@@ -102,11 +104,7 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
         customLiveIndexTitleView = findViewById(R.id.title_formulaquery);
         txtTitle = (TextView) customLiveIndexTitleView
                 .findViewById(R.id.title_text_nav);
-        if(showWho==1){
-            txtTitle.setText("智能推荐");
-        }else{
-            txtTitle.setText("配方查询");
-        }
+        txtTitle.setText("经销商查询");
 
         ivBack = (ImageView) findViewById(R.id.title_back);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +199,7 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
         mFormulasView=(PullToRefreshListView) findViewById(R.id.formula_pull_down_view);
         mFormulasView.setMode(PullToRefreshBase.Mode.BOTH);
         mNoms=(RelativeLayout)findViewById(R.id.rl_match_noms);
-        mFfs=new ArrayList<FeedFormulaVo>();
+        mFfs=new ArrayList<AgencyVo>();
 
         mFormulasView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -265,20 +263,14 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
         mFormulasView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try{
-                    FeedFormulaVo ff=(FeedFormulaVo)parent.getAdapter().getItem(position);
-                    if(ff!=null&&ff.id!=null){
-                        if(showWho==1){
-                            Intent intent=new Intent(ActivityAgencyQuery.this,ActivityFormulaArtificial2.class);
-                            intent.putExtra("formula", ff);
-                            startActivity(intent);
-                        }else{
-                            Intent intent=new Intent(ActivityAgencyQuery.this,ActivityFormulaDetail.class);
-                            intent.putExtra("formula", ff);
-                            startActivity(intent);
-                        }
+                try {
+                    AgencyVo ff = (AgencyVo) parent.getAdapter().getItem(position);
+                    if (ff != null && ff.id != null) {
+                        Intent intent = new Intent(ActivityAgencyQuery.this, ActivityAgencyDetail.class);
+                        intent.putExtra("agency", ff);
+                        startActivity(intent);
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -341,7 +333,7 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
                     mFormulaTypesListener);
             Map<String, Object> rps = new HashMap<String, Object>();
             rps.put("method", "getType");
-            rps.put("typeFlag", new ServiceHelper().TYPEFORMULA);
+            rps.put("typeFlag", new ServiceHelper().TYPEAGENCY);
             rps.put("pageNo", "1");
             rps.put("pageSize", "10000");
             http.get(new ServiceHelper().GETFORMULATYPE, rps);
@@ -422,13 +414,13 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
     private HttpExecuteJson.httpReturnJson mFormulaTypesListener = new HttpExecuteJson.httpReturnJson() {
         @Override
         public void onFailure(int error, String msg) {
-            UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取配方类型失败" + msg);
+            UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取经销商类型失败" + msg);
         }
 
         @Override
         public void onCancel() {
             // TODO Auto-generated method stub
-            UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取配方类型退出");
+            UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取经销商类型退出");
         }
 
         // 获取到饲料配方类型成功
@@ -463,11 +455,11 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
                             android.R.layout.simple_spinner_dropdown_item, formulaTypes);
                     formuType.setAdapter(adFys);
                 }else{
-                    UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取配方类型失败" + edv.getErrorMsg());
+                    UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取经销商类型失败" + edv.getErrorMsg());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取配方类型失败，请联系管理员：" + e.getMessage());
+                UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取经销商类型失败，请联系管理员：" + e.getMessage());
             }
             // UIHelper.ToastMessage(_context,"总条数=" + result + "");
         }
@@ -479,44 +471,11 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
     private void loadFormulas() {
         try {
 
-            String typeid = null;
-            if (formuType != null) {
-                FeedFormulaType ft = (FeedFormulaType) formuType
-                        .getSelectedItem();
-                if (ft != null && ft.id!=null&& ft.id > 0) {
-                    typeid = ft.id + "";
-                }
-            }
-            String areaid = null;
-            if (_currentCity != null
-                    && _currentCity.getNumber() != null) {
-                areaid = _currentCity.getNumber();
-            }
-            if(area!=null){
-                AreaVo av=(AreaVo)area.getSelectedItem();
-                if(av!=null&&av.id!=null &&av.id>0){
-                    areaid=av.id+"";
-                }
-            }
-            String keyword = null;
-            if (et_keyword != null) {
-                keyword = et_keyword.getText().toString();
-            }
-
-            HttpExecuteJson http = new HttpExecuteJson(this, mFormulaListener);
+            HttpExecuteJson http = new HttpExecuteJson(this,
+                    mFormulaListener);
             Map<String, Object> rps = new HashMap<String, Object>();
-            rps.put("method", "getFeedFormula");
-            if (typeid != null) {
-                rps.put("typeId", typeid);
-            }
-            if (areaid != null) {
-                rps.put("areaId", areaid);
-            }
-            if (keyword != null) {
-                rps.put("keyword", keyword);
-            }
-            rps.put("pageNo", pageno);
-            rps.put("pageSize", pagesize);
+            rps.put("method", "getFeedAgency");
+            rps.put("feedId", "1");
             http.get(new ServiceHelper().GETFORMULATYPE, rps);
         } catch (Exception e) {
             e.printStackTrace();
@@ -526,13 +485,13 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
     private HttpExecuteJson.httpReturnJson mFormulaListener = new HttpExecuteJson.httpReturnJson() {
         @Override
         public void onFailure(int error, String msg) {
-            UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取配方失败" + msg);
+            UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取经销商失败" + msg);
         }
 
         @Override
         public void onCancel() {
             // TODO Auto-generated method stub
-            UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取配方退出");
+            UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取经销商退出");
         }
 
         // 获取到饲料配方类型成功
@@ -546,13 +505,13 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
                 if ((edv != null)
                         && (edv.getErrorCode().equals(CommonResultVo.ERROR_CODE_SUCCESS))) {
 
-                    List<FeedFormulaVo> temps1=new ArrayList<FeedFormulaVo>();
+                    List<AgencyVo> temps1=new ArrayList<AgencyVo>();
                     try{
                         temps1 = JsonUtil.fromJsonArray(
                                 JsonUtil.toJson(edv.data),
-                                FeedFormulaVo.class);}catch (Exception e){}
+                                AgencyVo.class);}catch (Exception e){}
 
-                    if(temps1==null||temps1.size()==0){        // mAdapterMyCreate.notifyDataSetChanged();
+                    if(pageno!=1||temps1==null||temps1.size()==0){        // mAdapterMyCreate.notifyDataSetChanged();
                         Toast.makeText(ActivityAgencyQuery.this, "没有更多数据了",
                                 Toast.LENGTH_SHORT).show();
                     }else{
@@ -562,7 +521,7 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
                     if(isRefreshing){
                         mAdapter.notifyDataSetChanged();
                     }else{
-                        mAdapter = new FormulaAdapter(ActivityAgencyQuery.this, mFfs);
+                        mAdapter = new AgencySimpleAdapter(ActivityAgencyQuery.this, mFfs);
                         mFormulasView.setAdapter(mAdapter);
                     }
 
@@ -577,12 +536,12 @@ public class ActivityAgencyQuery extends Activity implements Thread.UncaughtExce
                     mFormulasView.onRefreshComplete();
                     isRefreshing = false;
                 }else{
-                    UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取配方失败" + edv.getErrorMsg());
+                    UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取经销商失败" + edv.getErrorMsg());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 // mStrings.addAll(temps);
-                UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取配方失败，请联系管理员：" + e.getMessage());
+                UIHelper.ToastMessage(ActivityAgencyQuery.this, "获取经销商失败，请联系管理员：" + e.getMessage());
             }
             // UIHelper.ToastMessage(_context,"总条数=" + result + "");
         }
