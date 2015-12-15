@@ -3,6 +3,7 @@ package com.surekam.pigfeed.ui.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -119,8 +120,6 @@ public class ActivityFormulaArtificial3 extends Activity {
                 mnurs.setVisibility(View.VISIBLE);
                 mIntro.setVisibility(View.GONE);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFormulaArtificial3.this);
-
                 mfsa=new String[mfs.size()];
                 mfsb=new boolean[mfs.size()];
                 for(int i=0;i<mfs.size();i++){
@@ -131,56 +130,9 @@ public class ActivityFormulaArtificial3 extends Activity {
                 perFeedNur=new ArrayList<ArtificialNur>();
                 arFeedNur=new ArrayList<ArtificialNur>();
 
-                //builder.setIcon(R.drawable.ic_launcher);
-                builder.setTitle("多项选择");
-                //  设置多选项
-                builder.setMultiChoiceItems(mfsa,
-                        mfsb,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1, boolean arg2) {
-                                // TODO Auto-generated method stub
-                                if (arg2) {
-                                    MultiChoiceID.add(arg1);
-                                    //String tip = "你选择的ID为"+arg1+",值为"+mfsa[arg1];
-                                    //Toast toast = Toast.makeText(getApplicationContext(), tip, Toast.LENGTH_SHORT);
-                                    //toast.show();
-                                }
-                                else {
-                                    MultiChoiceID.remove((Integer)arg1);
-                                }
-                            }
-                        });
-                //  设置确定按钮
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // TODO Auto-generated method stub
-                        String str = "";
-                        int size = MultiChoiceID.size();
-                        for(int i = 0; i < size; i++) {
-                            str += (mfs.get(MultiChoiceID.get(i)).id+",");
-                        }
-                        //Toast toast = Toast.makeText(getApplicationContext(), "你选择了"+str, Toast.LENGTH_LONG);
-                        //toast.show();
-                        feedids=str;
-                        //执行计算
-                        excute();
-                    }
-                });
-                //  设置取消按钮
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-
-                builder.create().show();
+                Intent intent=new Intent(ActivityFormulaArtificial3.this,ActivitySelectSelfFeed.class);
+                intent.putExtra("feeds", (ArrayList<FeedVo>) mfs);
+                startActivityForResult(intent,9);
             }
         });
 
@@ -191,8 +143,6 @@ public class ActivityFormulaArtificial3 extends Activity {
         mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFormulaArtificial3.this);
-
                 mfsa=new String[mfs.size()];
                 mfsb=new boolean[mfs.size()];
                 for(int i=0;i<mfs.size();i++){
@@ -203,56 +153,9 @@ public class ActivityFormulaArtificial3 extends Activity {
                 perFeedNur=new ArrayList<ArtificialNur>();
                 arFeedNur=new ArrayList<ArtificialNur>();
 
-                //builder.setIcon(R.drawable.ic_launcher);
-                builder.setTitle("多项选择");
-                //  设置多选项
-                builder.setMultiChoiceItems(mfsa,
-                        mfsb,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1, boolean arg2) {
-                                // TODO Auto-generated method stub
-                                if (arg2) {
-                                    MultiChoiceID.add(arg1);
-                                    //String tip = "你选择的ID为"+arg1+",值为"+mfsa[arg1];
-                                    //Toast toast = Toast.makeText(getApplicationContext(), tip, Toast.LENGTH_SHORT);
-                                    //toast.show();
-                                }
-                                else {
-                                    MultiChoiceID.remove((Integer)arg1);
-                                }
-                            }
-                        });
-                //  设置确定按钮
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // TODO Auto-generated method stub
-                        String str = "";
-                        int size = MultiChoiceID.size();
-                        for(int i = 0; i < size; i++) {
-                            str += (mfs.get(MultiChoiceID.get(i)).id+",");
-                        }
-                        //Toast toast = Toast.makeText(getApplicationContext(), "你选择了"+str, Toast.LENGTH_LONG);
-                        //toast.show();
-                        feedids=str;
-                        //执行计算
-                        excute();
-                    }
-                });
-                //  设置取消按钮
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-
-                builder.create().show();
+                Intent intent=new Intent(ActivityFormulaArtificial3.this,ActivitySelectSelfFeed.class);
+                intent.putExtra("feeds", (ArrayList<FeedVo>) mfs);
+                startActivityForResult(intent,9);
             }
         });
 
@@ -613,5 +516,16 @@ public class ActivityFormulaArtificial3 extends Activity {
             // UIHelper.ToastMessage(_context,"总条数=" + result + "");
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 9:
+                UIHelper.ToastLongMessage(this,"点了");
+                break;
+
+        }
+    }
 
 }
