@@ -53,7 +53,11 @@ public class ActivitySelectSelfFeed extends Activity {
             feeds=(List<FeedVo>)getIntent().getExtras().get("feeds");
             if(feeds!=null){
                 for(FeedVo f:feeds){
-                    f.creatorId=0L;
+                    if(f!=null){
+                        if(!f.sysFlag.equals("xuan")){
+                            f.creatorId=0L;
+                        }
+                    }
                 }
             }
         }catch (Exception e){}
@@ -130,28 +134,31 @@ public class ActivitySelectSelfFeed extends Activity {
                 feedSelect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        try{
-                            FeedVo f=(FeedVo)feedSelect.getTag();
-                            if(f!=null&&f.sysFlag.equals("xuan")){
-                                f.sysFlag="";
+                        try {
+                            FeedVo f = (FeedVo) feedSelect.getTag();
+                            if (f != null && f.sysFlag.equals("xuan")) {
+                                f.sysFlag = "";
                                 feedSelect.setTag(f);
                                 feedSelect.setImageResource(R.drawable.phone_no_select);
-                            }else{
-                                f.sysFlag="xuan";
+                            } else {
+                                f.sysFlag = "xuan";
                                 feedSelect.setTag(f);
                                 feedSelect.setImageResource(R.drawable.phone_select);
                             }
-                        }catch (Exception e){}
+                        } catch (Exception e) {
+                        }
                     }
                 });
                 feedSelect.setTag(f);
                 feedName.setText(f.name);
                 if(f!=null&&f.sysFlag.equals("xuan")){
+                    feedW.setText(f.creatorId+"");//createid存重量
                     feedSelect.setImageResource(R.drawable.phone_select);
                 }else{
+                    feedW.setHint(f.creatorId + "(单位：千克)");//createid存重量
                     feedSelect.setImageResource(R.drawable.phone_no_select);
                 }
-                feedW.setHint(f.creatorId + "(单位：千克)");//createid存重量
+
 
                 result=view;
             }

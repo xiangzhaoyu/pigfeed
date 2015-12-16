@@ -58,6 +58,7 @@ public class ActivityFormulaArtificial3 extends Activity {
 
     private FeedFormulaVo ff;
 
+    private List<FeedVo> mfsRight=new ArrayList<FeedVo>();
     private List<FeedVo> mfs = new ArrayList<FeedVo>();
     private List<FeedVo> targets=new ArrayList<FeedVo>();
     //private String[] mfsa;
@@ -276,7 +277,7 @@ public class ActivityFormulaArtificial3 extends Activity {
                                             double temp=0;
                                             for(ArtificialNur av:perFeedNur){
                                                 try{
-                                                    if(id==av.Mid){
+                                                    if(id.equals(av.Mid)){
                                                         tempav=(ArtificialNur)av.clone();
                                                         temp+=av.UnitNumber;
                                                     }
@@ -301,7 +302,7 @@ public class ActivityFormulaArtificial3 extends Activity {
                                                 double weight=0;
                                                 if(targets!=null){
                                                     for(FeedVo t:targets){
-                                                        if(t.id==n.Mid){
+                                                        if(t.id.equals(n.Mid)){
                                                             weight=Double.parseDouble(t.creatorId+"");
                                                         }
                                                     }
@@ -310,7 +311,7 @@ public class ActivityFormulaArtificial3 extends Activity {
                                                     double fw=Double.parseDouble(ff.useNum);
                                                     double d=weight/(fw*n.UnitNumber);
                                                     String ds=new java.text.DecimalFormat("0.000").format(d);
-                                                    String i=ds.substring(0,ds.indexOf('.'));
+                                                    String i=ds.substring(0, ds.indexOf('.'));
                                                     String id=ds.substring(ds.indexOf('.')+1);
                                                     n.Cname=i+"份，余0."+id+"千克";
                                                 }
@@ -325,6 +326,13 @@ public class ActivityFormulaArtificial3 extends Activity {
                                     fixListViewHeight(lvFormulaAr);
                                     // 数据加载完成改变一下scrollview的显示位置
                                     sv.scrollTo(0, 0);
+                                    if(mfsRight!=null){
+                                        mfs.clear();
+                                        for(FeedVo fr:mfsRight){
+                                            FeedVo fr1=(FeedVo)fr.clone();
+                                            mfs.add(fr1);
+                                        }
+                                    }
                                 }else{
                                     List<ArtificialNur> xx=mPfDb.getMinFeedNurs(fn.Cid,fn.UnitNumber);
                                     if(xx!=null&&xx.size()>0){
@@ -336,6 +344,7 @@ public class ActivityFormulaArtificial3 extends Activity {
                                     }else{
                                         UIHelper.ToastLongMessage(ActivityFormulaArtificial3.this, "由于配方的" + fn.Cname + "含量过低，数据库无法生成合适的饲料配比！");
                                     }
+                                    historySelect();
                                 }
                             }else{
                                 List<ArtificialNur> xx=mPfDb.getMaxFeedNurs(fn.Cid,fn.UnitNumber);
@@ -348,10 +357,12 @@ public class ActivityFormulaArtificial3 extends Activity {
                                 }else{
                                     UIHelper.ToastLongMessage(ActivityFormulaArtificial3.this, "由于配方的" + fn.Cname + "含量过高，数据库无法生成合适的饲料配比！");
                                 }
+                                historySelect();
                             }
                         }catch (Exception e){}
                     }
                 }else{
+                    historySelect();
                     UIHelper.ToastLongMessage(ActivityFormulaArtificial3.this, "请选择两种以上的饲料！");
                 }
             }else{
@@ -450,7 +461,13 @@ public class ActivityFormulaArtificial3 extends Activity {
                                 Toast.LENGTH_SHORT).show();
                     }else{
                         mfs.addAll(temps1);
-
+                        if(mfs!=null){
+                            mfsRight.clear();
+                            for(FeedVo f:mfs){
+                                FeedVo f1=(FeedVo)f.clone();
+                                mfsRight.add(f1);
+                            }
+                        }
                     }
 
                 }else{
@@ -554,6 +571,23 @@ public class ActivityFormulaArtificial3 extends Activity {
                 break;
 
         }
+    }
+
+    public void historySelect(){
+        try{
+            if(mfs!=null&&targets!=null){
+                for(FeedVo f:targets){
+                    for(FeedVo n:mfs){
+                        try{
+                            if(n.id.equals(f.id)){
+                                n.creatorId=f.creatorId;
+                                n.sysFlag=f.sysFlag;
+                            }
+                        }catch (Exception e){}
+                    }
+                }
+            }
+        }catch (Exception e){}
     }
 
 }

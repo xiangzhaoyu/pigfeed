@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
 
-public class FeedVo  implements Serializable {
+public class FeedVo  implements Serializable,Cloneable {
 
 	public Long id;
 	
@@ -31,7 +31,17 @@ public class FeedVo  implements Serializable {
 	public String toString(){
 		return name;
 	}
-    
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        FeedVo stu = null;
+        try{
+            stu = (FeedVo)super.clone();
+        }catch(CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return stu;
+    }
     
         
 }
