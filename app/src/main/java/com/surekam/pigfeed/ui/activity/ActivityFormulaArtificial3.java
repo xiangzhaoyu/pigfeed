@@ -58,9 +58,9 @@ public class ActivityFormulaArtificial3 extends Activity {
     private FeedFormulaVo ff;
 
     private List<FeedVo> mfs = new ArrayList<FeedVo>();
-    private String[] mfsa;
-    private boolean[] mfsb;
-    private ArrayList<Integer> MultiChoiceID = new ArrayList<Integer>();
+    //private String[] mfsa;
+    //private boolean[] mfsb;
+    //private ArrayList<Integer> MultiChoiceID = new ArrayList<Integer>();
     private String feedids;
 
     private Button mSelect,mSum;
@@ -120,13 +120,6 @@ public class ActivityFormulaArtificial3 extends Activity {
                 mnurs.setVisibility(View.VISIBLE);
                 mIntro.setVisibility(View.GONE);
 
-                mfsa=new String[mfs.size()];
-                mfsb=new boolean[mfs.size()];
-                for(int i=0;i<mfs.size();i++){
-                    mfsa[i]=mfs.get(i).name;
-                    mfsb[i]=false;
-                }
-                MultiChoiceID.clear();
                 perFeedNur=new ArrayList<ArtificialNur>();
                 arFeedNur=new ArrayList<ArtificialNur>();
 
@@ -143,13 +136,7 @@ public class ActivityFormulaArtificial3 extends Activity {
         mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mfsa=new String[mfs.size()];
-                mfsb=new boolean[mfs.size()];
-                for(int i=0;i<mfs.size();i++){
-                    mfsa[i]=mfs.get(i).name;
-                    mfsb[i]=false;
-                }
-                MultiChoiceID.clear();
+
                 perFeedNur=new ArrayList<ArtificialNur>();
                 arFeedNur=new ArrayList<ArtificialNur>();
 
@@ -430,12 +417,7 @@ public class ActivityFormulaArtificial3 extends Activity {
                                 Toast.LENGTH_SHORT).show();
                     }else{
                         mfs.addAll(temps1);
-                        mfsa=new String[mfs.size()];
-                        mfsb=new boolean[mfs.size()];
-                        for(int i=0;i<mfs.size();i++){
-                            mfsa[i]=mfs.get(i).name;
-                            mfsb[i]=false;
-                        }
+
                     }
 
                 }else{
@@ -521,8 +503,21 @@ public class ActivityFormulaArtificial3 extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 9:
-                UIHelper.ToastLongMessage(this,"点了");
+            case 9:{
+                try{
+                    List<FeedVo> targets=(List<FeedVo>)data.getExtras().get("targetFeeds");
+                    feedids="";
+                    if(targets!=null){
+                        for(FeedVo f:targets){
+                            try{
+                                if(f!=null&&f.id>0){
+                                    feedids += (f.id+",");
+                                }
+                            }catch (Exception e){}
+                        }
+                        excute();
+                    }
+                }catch (Exception e){}}
                 break;
 
         }

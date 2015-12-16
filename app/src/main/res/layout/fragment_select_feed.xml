@@ -25,6 +25,7 @@
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:visibility="gone"
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/formula_pull_down_view"
         android:layout_width="fill_parent"
@@ -33,4 +34,13 @@
         ptr:ptrHeaderTextColor="@color/black"
 
         />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:id="@+id/ll_select_feeds"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
 </LinearLayout>
