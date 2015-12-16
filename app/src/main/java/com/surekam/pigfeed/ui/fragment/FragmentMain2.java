@@ -136,9 +136,9 @@ public class FragmentMain2 extends BaseFragment implements OnClickListener {
         data.add(new ImageInfo("配方检索", R.drawable.icon1, R.drawable.icon_bg01));
         data.add(new ImageInfo("饲料检索", R.drawable.icon2, R.drawable.icon_bg01));
         data.add(new ImageInfo("价格趋势", R.drawable.icon3, R.drawable.icon_bg01));
-		data.add(new ImageInfo("联系经销商", R.drawable.icon3, R.drawable.icon_bg01));
+		data.add(new ImageInfo("联系经销商", R.drawable.agency, R.drawable.icon_bg01));
         data.add(new ImageInfo("智能配方计算", R.drawable.icon4, R.drawable.icon_bg01));
-		data.add(new ImageInfo("精准配方计算", R.drawable.icon4, R.drawable.icon_bg01));
+		data.add(new ImageInfo("精准配方计算", R.drawable.accuracy, R.drawable.icon_bg01));
     }
 	
 	@Override
