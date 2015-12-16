@@ -32,6 +32,7 @@ import com.surekam.pigfeed.bean.NutritionVo;
 import com.surekam.pigfeed.db.PfDb;
 import com.surekam.pigfeed.tools.JsonUtil;
 import com.surekam.pigfeed.ui.adapter.ArtificialAdapter;
+import com.surekam.pigfeed.ui.adapter.ArtificialAdapter3;
 import com.surekam.pigfeed.ui.adapter.NutritionListAdapter;
 
 import java.io.File;
@@ -58,6 +59,7 @@ public class ActivityFormulaArtificial3 extends Activity {
     private FeedFormulaVo ff;
 
     private List<FeedVo> mfs = new ArrayList<FeedVo>();
+    private List<FeedVo> targets=new ArrayList<FeedVo>();
     //private String[] mfsa;
     //private boolean[] mfsb;
     //private ArrayList<Integer> MultiChoiceID = new ArrayList<Integer>();
@@ -67,21 +69,22 @@ public class ActivityFormulaArtificial3 extends Activity {
     private ListView lvFormulaAr;
     List<ArtificialNur> perFeedNur=new ArrayList<ArtificialNur>();
     List<ArtificialNur> arFeedNur=new ArrayList<ArtificialNur>();
-    private ArtificialAdapter arFeedAdapter;
+    private ArtificialAdapter3 arFeedAdapter;
 
     //营养素列表
     private ListView nuListView;
     private List<NutritionVo> listNus=new ArrayList<NutritionVo>();
     private NutritionListAdapter nuAdapter;
 
-    private LinearLayout mfeeds,mnurs,mIntro;
+    private LinearLayout mf,mfeeds,mnurs,mIntro;
+    private TextView mFUsage;
     private ScrollView sv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_formula_artificial_main1);
+        setContentView(R.layout.fragment_formula_artificial_main3);
         try {
             ff = (FeedFormulaVo) getIntent().getExtras().get("formula");
         } catch (Exception e) {
@@ -116,6 +119,7 @@ public class ActivityFormulaArtificial3 extends Activity {
         tvOpe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mf.setVisibility(View.VISIBLE);
                 mfeeds.setVisibility(View.VISIBLE);
                 mnurs.setVisibility(View.VISIBLE);
                 mIntro.setVisibility(View.GONE);
@@ -156,9 +160,15 @@ public class ActivityFormulaArtificial3 extends Activity {
 
         lvFormulaAr =(ListView)findViewById(R.id.lv_formula_artifi);
 
+        mf=(LinearLayout)findViewById(R.id.ll_arti_f);
         mfeeds=(LinearLayout)findViewById(R.id.ll_arti_feeds);
         mnurs=(LinearLayout)findViewById(R.id.ll_arti_nutris);
         mIntro=(LinearLayout)findViewById(R.id.ll_arti_intro);
+
+        mFUsage=(TextView)findViewById(R.id.tv_arti_usage);
+        if(ff!=null){
+            mFUsage.setText(ff.useNum+ff.systemUnitName);
+        }
 
         nuListView=(ListView)findViewById(R.id.listview_feed_nutrition);
 
@@ -284,10 +294,33 @@ public class ActivityFormulaArtificial3 extends Activity {
                                         temp.UnitNumber=0;
                                         arFeedNur.add(temp);
                                     }
+                                    //计算差额
+                                    if(arFeedNur!=null){
+                                        for(ArtificialNur n:arFeedNur){
+                                            try{
+                                                double weight=0;
+                                                if(targets!=null){
+                                                    for(FeedVo t:targets){
+                                                        if(t.id==n.Mid){
+                                                            weight=Double.parseDouble(t.creatorId+"");
+                                                        }
+                                                    }
+                                                }
+                                                if(weight>0){
+                                                    double fw=Double.parseDouble(ff.useNum);
+                                                    double d=weight/(fw*n.UnitNumber);
+                                                    String ds=new java.text.DecimalFormat("0.000").format(d);
+                                                    String i=ds.substring(0,ds.indexOf('.'));
+                                                    String id=ds.substring(ds.indexOf('.')+1);
+                                                    n.Cname=i+"份，余0."+id+"千克";
+                                                }
+                                            }catch (Exception e){}
+                                        }
+                                    }
                                     //绑定数据展示控件
-                                    arFeedAdapter = new ArtificialAdapter(arFeedNur,
+                                    arFeedAdapter = new ArtificialAdapter3(arFeedNur,
                                             getApplicationContext(),
-                                            R.layout.item_list_artificial);
+                                            R.layout.item_list_artificial3);
                                     lvFormulaAr.setAdapter(arFeedAdapter);
                                     fixListViewHeight(lvFormulaAr);
                                     // 数据加载完成改变一下scrollview的显示位置
@@ -505,7 +538,7 @@ public class ActivityFormulaArtificial3 extends Activity {
         switch (requestCode) {
             case 9:{
                 try{
-                    List<FeedVo> targets=(List<FeedVo>)data.getExtras().get("targetFeeds");
+                    targets=(List<FeedVo>)data.getExtras().get("targetFeeds");
                     feedids="";
                     if(targets!=null){
                         for(FeedVo f:targets){

@@ -151,7 +151,7 @@ public class ActivitySelectSelfFeed extends Activity {
                 }else{
                     feedSelect.setImageResource(R.drawable.phone_no_select);
                 }
-                feedW.setHint(f.creatorId + "");//createid存重量
+                feedW.setHint(f.creatorId + "(单位：千克)");//createid存重量
 
                 result=view;
             }
